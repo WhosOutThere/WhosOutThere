@@ -25,7 +25,6 @@
       // login status of the person. In this case, we're handling the situation where they 
       // have logged in to the app.
       testAPI();
-      FB.login(function(){}, {scope: 'friends_location'});
       FB.api(
       	"/me/friends",
       	{ fields: 'name, location' },
