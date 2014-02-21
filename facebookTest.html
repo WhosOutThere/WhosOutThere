@@ -1,0 +1,20 @@
+<html>
+<head></head>
+<body>
+	<div id="fb-root"></div>
+
+<!--
+  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+  present a graphical Login button that triggers the FB.login() function when clicked. -->
+  <p>
+  	<fb:login-button show-faces="true" width="200" max-rows="1" scope="user_friends,friends_location"></fb:login-button>
+  </p>
+
+  <p>
+  	<button onclick="findFriends()">Find Friends</button>
+  </p>
+
+  <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
+</body>
+<script type="text/javascript" src="js/facebookTest.js"></script>
+</html>

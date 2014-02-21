@@ -1,14 +1,10 @@
-<html>
-<head></head>
-<body>
-	<div id="fb-root"></div>
-	<script>
 		var globalNames = new Array();
 		var globalLocations = new Array();
 
 		window.fbAsyncInit = function() {
 			FB.init({
-				appId      : '212944075564919',
+				//appId      : '212944075564919',
+        appId   :'359029350906887',
     status     : true, // check login status
     cookie     : true, // enable cookies to allow the server to access the session
     xfbml      : true  // parse XFBML
@@ -39,6 +35,7 @@
       					globalLocations[i] = "Null";
       				}
       			}
+            sessionStorage.arr = globalLocations;
       		}
       		else {
       			console.log("Failed to get friend IDs");
@@ -92,28 +89,22 @@
   function findFriends() {
   	console.log('Finding Friends');
     //FB.login(function(){}, {scope: 'user_friends, user_location, friends_location'});
-    var userLocation = ""
+    var userLocation = "";
 
     for (var i = 0; i < globalNames.length; i++) {
     	userLocation = userLocation + globalNames[i] + ": " + globalLocations[i] + "<br>";
     }
     document.getElementById("Names").innerHTML = userLocation;
-
 }
 
-</script>
+  function findOneFriend(str){
+    //index = Math.floor(Math.random()*globalNames.length);
+    if(str==="Null")
+      return null;
+    else
+      return str;
+  }
 
-<!--
-  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-  present a graphical Login button that triggers the FB.login() function when clicked. -->
-  <p>
-  	<fb:login-button show-faces="true" width="200" max-rows="1" scope="user_friends,friends_location"></fb:login-button>
-  </p>
-
-  <p>
-  	<button onclick="findFriends()">Find Friends</button>
-  </p>
-
-  <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
-</body>
-</html>
+  function testing(){
+    return "1";
+  }
