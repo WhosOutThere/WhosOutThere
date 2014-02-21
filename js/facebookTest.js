@@ -3,7 +3,7 @@
 
 		window.fbAsyncInit = function() {
 			FB.init({
-				//appId      : '212944075564919',
+				//appId      : '212944075564919', //shuotian's appID
         appId   :'359029350906887',
     status     : true, // check login status
     cookie     : true, // enable cookies to allow the server to access the session
@@ -96,15 +96,3 @@
     }
     document.getElementById("Names").innerHTML = userLocation;
 }
-
-  function findOneFriend(str){
-    //index = Math.floor(Math.random()*globalNames.length);
-    if(str==="Null")
-      return null;
-    else
-      return str;
-  }
-
-  function testing(){
-    return "1";
-  }
