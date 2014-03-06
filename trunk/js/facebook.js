@@ -96,7 +96,7 @@ function findFriends() {
 
             // Print the friends and locations out to the webpage
             // Note: This will not be present for the final product
-            printFriends();
+            //printFriends();
         }
     );
 }
