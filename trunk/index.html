@@ -1,0 +1,25 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">  
+</head>
+
+<body>
+	<div id="fb-root"></div>
+
+  <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
+
+  <!--
+  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+  present a graphical Login button that triggers the FB.login() function when clicked. -->
+  <p>
+    <fb:login-button show-faces="true" width="200" max-rows="1" scope="user_friends,friends_location" id="facebookLogin"></fb:login-button>
+  </p>
+
+  <p>
+    <button id="facebookLogout" onclick="facebookLogout()">Logout</button>
+  </p>
+
+</body>
+
+<script type="text/javascript" src="js/facebook.js"></script>
+</html>
