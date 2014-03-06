@@ -1,10 +1,9 @@
-		var globalNames = new Array();
+ 		var globalNames = new Array();
 		var globalLocations = new Array();
 
 		window.fbAsyncInit = function() {
 			FB.init({
-				//appId      : '212944075564919', //shuotian's appID
-        appId   :'359029350906887',
+        appId   :'288090811349338',
     status     : true, // check login status
     cookie     : true, // enable cookies to allow the server to access the session
     xfbml      : true  // parse XFBML
