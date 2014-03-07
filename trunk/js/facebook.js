@@ -67,7 +67,7 @@ window.fbAsyncInit = function() {
 function facebookLogout() {
     FB.logout(function(response) {});
     document.location.reload();
-}
+};
 
 /**
  * Find Friends
@@ -99,7 +99,7 @@ function findFriends() {
             //printFriends();
         }
     );
-}
+};
 
 /** 
  * Print Friends
@@ -115,4 +115,4 @@ function printFriends() {
     }
     userLocation = userLocation + "</div>"
     document.getElementById("Names").innerHTML = userLocation;
-}
+};
