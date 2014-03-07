@@ -12,7 +12,7 @@
       }
     }
 
-
+//a function to run the showAllLocation multiple times in order to load the markers
 function warmup(){
 	for(var i = 0; i < 70; i++){
 		showAllLocation();
@@ -20,7 +20,7 @@ function warmup(){
 	}	
 }
 
-
+//this function go through the locations list and print markers
     function showAllLocation() {
       console.log("showAlllocation scope");
       console.log(globalNames);
@@ -64,7 +64,7 @@ function warmup(){
     }
     
 
-    
+   // this function is the original function of google map 
    function showAddress(address) {
       if (geocoder) {
         geocoder.getLatLng(
