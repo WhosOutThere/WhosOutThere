@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.14.0.css">
+  <script src="js/facebook.js"></script>
+</head>
+<body>
+	<div id="fb-root"></div>
+
+<!--
+  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+  present a graphical Login button that triggers the FB.login() function when clicked. -->
+  <p>
+  	<fb:login-button show-faces="true" width="200" max-rows="1" scope="user_friends,friends_location"></fb:login-button>
+  </p>
+
+  <p>
+  	<button onclick="findFriends()">Find Friends</button>
+  </p>
+
+  <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+   <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//code.jquery.com/qunit/qunit-1.14.0.js"></script>
+  <script src="js/tests.js"></script>
+</body>
+</html>

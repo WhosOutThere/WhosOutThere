@@ -11,6 +11,6 @@ function showFriendList(address){
 		}
 	}
 	console.log(filterFriends);	
-	document.getElementById("Names").innerHTML = filterFriends;
 	filterFriends=[];
+	return false;
 }

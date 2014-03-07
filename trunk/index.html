@@ -1,71 +1,100 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-
   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <title>Who's Out There</title>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW0NO2GjvKRAViX3MnPHWqSN4hqAtXi4o&sensor=false&amp;libraries=places"></script>
 
-  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyBi3tVYruZaX5g1M5p1ghiHBtdyZ3xzx4w"
-  type="text/javascript"></script>
-  <script type="text/javascript" src="js/map.js"></script>
-  <script type="text/javascript" src="js/list.js"></script>
-  <script type="text/javascript" src="js/facebook.js"></script>    
 </head>
+<body>
+  <div id="fb-root"></div>
+    <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Who's Out There?</a>
+      </div>
 
-<body onload="initialize()" onunload="GUnload()">
-    <div id="fb-root"></div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+              <li class="divider"></li>
+              <li><a href="#">One more separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" name="address" value="" id="query">
+          </div>
+          <button type="submit" class="btn btn-default" onclick="showAddress(event)">Submit</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><fb:login-button width="200" max-rows="1" scope="user_friends,friends_location" id="facebookLogin"></fb:login-button></li>
+              <li><button onclick="facebookLogout()" id="facebookLogout">Logout</button></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 
-    <h1>Who's Out There?</h1>
-
-    <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
-
-    <form id="Map_and_friends" action="#" onsubmit="showFriendList(this.address.value);showAddress(this.address.value); return false">
-        <p>
-            <input type="text" style="width:350px" name="address" value="" />
-            <input type="submit" value="Go" />
-        </p>
-
-        <div>
-            <span><div id="map_canvas"></div></span>
-            <span id="friends_list"></span>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
         </div>
-    </form>
+        <div class="modal-body">
+         <ul class="list-group" id ="filteredFriends">
+        </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!--
-    Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-    present a graphical Login button that triggers the FB.login() function when clicked. -->
-    <p>
-        <fb:login-button show-faces="true" width="200" max-rows="1" scope="user_friends,friends_location" id="facebookLogin"></fb:login-button>
-    </p>
-
-    <p>
-        <button onclick="facebookLogout();" id="facebookLogout">Logout</button>
-    </p>
-
+  <!--Google Maps-->
+  <div id="map-canvas"></div>
 </body>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+  <script type="text/javascript" src="js/facebook.js"></script>
+<script src="js/jquery.geocomplete.min.js"></script>
+<script src="js/geocomplete.js"></script>
 
 </html>
-<!--
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>WhosOutThere</title>
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyBi3tVYruZaX5g1M5p1ghiHBtdyZ3xzx4w"
-      type="text/javascript"></script>
-    <script type="text/javascript" src="js/map.js"></script>
-    <script type="text/javascript" src="js/list.js"></script>    
-  </head>
-
-  <body onload="initialize()" onunload="GUnload()">
-    <form action="#" onsubmit="showFriendList(this.address.value);showAddress(this.address.value); return false">
-      <p>
-        <input type="text" style="width:350px" name="address" value="" />
-        <input type="submit" value="Go" />
-      </p>
-      <div id="map_canvas" style="width: 600px; height: 400px"></div>
-    </form>
-    <form action="#" onsubmit="showFriendList(this.address.value); return false"/>
-    
-  </body>
-</html>-->

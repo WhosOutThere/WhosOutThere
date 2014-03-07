@@ -1,20 +1,15 @@
 var filterFriends = new Array();
 
 function showFriendList(address) {
-    console.log(address);
-    console.log(globalNames);
-    console.log(globalLocations);
-
+    filterFriends = [];
     var printFriends = "";
-
-    for (var i = 0; i < globalLocations.length; i++) {
-        if (globalLocations[i].indexOf(address) >= 0) {
-            filterFriends.push(globalNames[i] + " ");
-            printFriends = printFriends + globalNames[i] + ", ";
+    for (var i = 0; i < globalFriends.length; i++) {
+        var location = globalFriends[i].location;
+        if (location.indexOf(address) != -1) {
+            filterFriends.push(globalFriends[i]);
+            printFriends = printFriends + globalFriends[i].name + ", ";
         }
     }
     console.log(filterFriends);
-    //document.getElementById("friends_list").innerHTML = filterFriends;
-    document.getElementById("friends_list").innerHTML = printFriends;
-    filterFriends = [];
+    return filterFriends;
 }
