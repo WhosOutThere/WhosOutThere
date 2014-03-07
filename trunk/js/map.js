@@ -1,6 +1,7 @@
     var map;
     var geocoder;
     var markers = [];
+    var testlatlng;
 
     function initialize() {
      /*if (GBrowserIsCompatible()) {
@@ -20,7 +21,7 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 
 
-    function showAddress(event) {
+    function showAddress(event,fn) {
       /*var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
       if (geocoder) {
         geocoder.getLatLng(
@@ -48,6 +49,7 @@
 
       //gets the input address from the search box.
       var address = document.getElementById("query").value.split(", ")[0];
+      console.log(address);
       if(markers.length!=0){
         markers[0].setMap(null);
         markers=[]
@@ -82,10 +84,17 @@
              }
             });
             markers.push(marker);
+            testlatlng = {
+              'lat':results[0].geometry.location.d,
+              'lon':results[0].geometry.location.e
+            }
+            console.log(testlatlng);
+            fn(testlatlng);
         }
         else
         {
-            alert("Geocode was not successful for the following reason: " + status);
+            fn(status);
+            console.log("Geocode was not successful for the following reason: " + status);
         }
     });
 
