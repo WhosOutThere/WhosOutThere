@@ -64,3 +64,29 @@
   </body>
 </html>
 
+
+function showAddress(address) {
+
+//var filterFriends = new Array();
+//for(var i = 0; i<globalLocations.length; i++){
+    //		if(globalLocations[i].indexOf(address)>=0){
+    //			filterFriends.push(globalNames[i]);
+    //		}
+    //   }    
+    for(var i = 0; i<filterFriends.length; i++){
+        
+        if (geocoder) {
+        geocoder.getLatLng(
+        address,
+        function(point) {
+        
+        map.setCenter(point, 15);
+        var marker = new GMarker(point, {draggable: true});
+        map.addOverlay(marker);
+        //marker.openInfoWindowHtml({content:'Hello'});
+        }
+        
+        );
+        }
+        }
+        }
