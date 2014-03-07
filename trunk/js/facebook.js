@@ -1,9 +1,9 @@
-var globalNames = new Array();
-var globalLocations = new Array();
-
+var globalFriends = new Array();
+var locationDict = {};
 window.fbAsyncInit = function() {
     FB.init({
-        appId: '212944075564919', //shuotian's appID
+       // appId: '212944075564919', //shuotian's appID
+        appId:'359029350906887',    //josh's appID
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true // parse XFBML
@@ -20,6 +20,7 @@ window.fbAsyncInit = function() {
             // login status of the person. In this case, we're handling the situation where they 
             // have logged in to the app.
             document.getElementById("facebookLogout").style.display = "block";
+            document.getElementById("facebookLogin").style.display="none";
             // Populate the globalNames and globalLocations arrays
             findFriends();
         } else if (response.status === 'not_authorized') {
@@ -30,6 +31,7 @@ window.fbAsyncInit = function() {
             // (1) JavaScript created popup windows are blocked by most browsers unless they 
             // result from direct interaction from people using the app (such as a mouse click)
             // (2) it is a bad experience to be continually prompted to login upon page load.
+            document.getElementById("facebookLogout").style.display = "none";
             FB.login(function() {}, {
                 scope: 'user_friends,friends_location'
             });
@@ -39,6 +41,7 @@ window.fbAsyncInit = function() {
             // of whether they are logged into the app. If they aren't then they'll see the Login
             // dialog right after they log in to Facebook. 
             // The same caveats as above apply to the FB.login() call here.
+            document.getElementById("facebookLogout").style.display = "none";
             FB.login(function() {}, {
                 scope: 'user_friends,friends_location'
             });
@@ -65,8 +68,12 @@ window.fbAsyncInit = function() {
  * Wrapper around Facebook logout API call and refreshes the page automatically
  */
 function facebookLogout() {
-    FB.logout(function(response) {});
-    document.location.reload();
+    FB.logout(function(response) {
+        if(response){
+            document.location.reload();
+        }
+    });
+
 };
 
 /**
@@ -77,19 +84,46 @@ function facebookLogout() {
 function findFriends() {
     FB.api(
         "/me/friends", {
-            fields: 'name, location'
+            fields: 'name, location,id'
         },
         function(response) {
             if (response && !response.error) {
                 for (var i = 0; i < response.data.length; i++) {
-                    globalNames[i] = response.data[i].name;
+                    var loc = "";
                     if (response.data[i].location) {
-                        globalLocations[i] = response.data[i].location.name;
+                        loc = response.data[i].location.name;
                     } else {
-                        globalLocations[i] = "Null";
+                        loc = "Null";
+                    }
+                    //stores each friend as a json object. The fields include name, id and location.
+                    var friend = {
+                        'name': response.data[i].name,
+                        'id':response.data[i].id,
+                        'location': loc
+                    }
+                    globalFriends.push(friend);
+                    if(loc!=="Null"){
+                        locationDict[loc]=loc;
                     }
                 }
-                sessionStorage.arr = globalLocations;
+                /*
+                for(var key in locationDict){
+                    var address = locationDict[key];
+                    geocoder.geocode( { 'address': address}, function(results, status)
+                    {
+                        console.log(results);
+                        if (status == google.maps.GeocoderStatus.OK)
+                        {
+                            var marker = new google.maps.Marker(
+                            {
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                        }
+                    });
+
+                }*/
+               
             } else {
                 console.log("Failed to get friend IDs");
             }
