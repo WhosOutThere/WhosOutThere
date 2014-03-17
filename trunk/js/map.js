@@ -3,6 +3,8 @@ var map;
     var markers = [];
     var testlatlng;
 
+    var numFriendsInCity;
+
     function initialize() {
      /*if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map_canvas"));
@@ -16,7 +18,7 @@ var map;
         zoom: 4
       };
       map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
-      
+
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -75,11 +77,24 @@ var map;
              else{
 
               //Dynamically adds our filtered list of friends to the modal. It contains their name and Facebook id. We will expand on this some way to  do more interactions.
+              /*
               document.getElementById("filteredFriends").innerHTML="";
               for(var i = 0; i < filterFriends.length;i++){
                 var friend = "<li class=\"list-group-item\">"+filterFriends[i].name+" - fbID: "+filterFriends[i].id+"</li>";
                 document.getElementById("filteredFriends").innerHTML+=friend;
+            }*/
+
+              document.getElementById("filteredFriends").innerHTML="";
+              numFriendsInCity = 0;
+              for (var i = 0; i < filterFriends.length; i++) {
+                  var friend = "<label class=\"btn btn-primary\"><input type=\"checkbox\" value=\""+filterFriends[i].name+"\" id=\"friend"+i+"\">"+
+                  filterFriends[i].name+
+                  "</label>"
+                  document.getElementById("filteredFriends").innerHTML+=friend;
+                  numFriendsInCity += 1;
               }
+
+
               $('#myModal').modal('show');
              }
             });
@@ -100,4 +115,13 @@ var map;
 
       showFriendList(address);
       document.getElementById("query").value = "";
+    }
+
+    function selectFriends() {
+        for (var i = 0; i < numFriendsInCity; i++) {
+            var selected = document.getElementById("friend"+i).checked;
+            if (selected) {
+                console.log("selected " + document.getElementById("friend"+i).value);
+            }
+        }
     }
