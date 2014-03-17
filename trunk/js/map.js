@@ -117,11 +117,3 @@ var map;
       document.getElementById("query").value = "";
     }
 
-    function selectFriends() {
-        for (var i = 0; i < numFriendsInCity; i++) {
-            var selected = document.getElementById("friend"+i).checked;
-            if (selected) {
-                console.log("selected " + document.getElementById("friend"+i).value);
-            }
-        }
-    }
