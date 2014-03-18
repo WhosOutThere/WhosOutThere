@@ -3,9 +3,9 @@ var locationDict = {};
 var selectFbId;
 window.fbAsyncInit = function() {
     FB.init({
-       // appId: '212944075564919', //shuotian's appID
+        appId: '212944075564919', //shuotian's appID
         //appId:'359029350906887',    //josh's appID
-        appId:'227611927429067',    //josh's localhost appid
+        //appId:'227611927429067',    //josh's localhost appid
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true // parse XFBML
@@ -22,14 +22,20 @@ window.fbAsyncInit = function() {
             // login status of the person. In this case, we're handling the situation where they 
             // have logged in to the app.
             document.getElementById("facebookLogout").style.display = "block";
-            document.getElementById("facebookLogin").style.display="none";
+            document.getElementById("facebookLogin").style.display = "none";
             // Populate the globalNames and globalLocations arrays
-             FB.api('/me', {fields: 'name, email, id'}, function(data) {
-                  console.log(data.name + data.email + data.id);
-                  $.post( "http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php",{ name: data.name, email:data.email, id:data.id }).done(function( result ) {
-                      console.log(result);
-                    });
+            FB.api('/me', {
+                fields: 'name, email, id'
+            }, function(data) {
+                console.log(data.name + data.email + data.id);
+                $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php", {
+                    name: data.name,
+                    email: data.email,
+                    id: data.id
+                }).done(function(result) {
+                    console.log(result);
                 });
+            });
             findFriends();
         } else if (response.status === 'not_authorized') {
             // In this case, the person is logged into Facebook, but not into the app, so we call
@@ -41,14 +47,22 @@ window.fbAsyncInit = function() {
             // (2) it is a bad experience to be continually prompted to login upon page load.
             document.getElementById("facebookLogout").style.display = "none";
             FB.login(function(response) {
-                 FB.api('/me', {fields: 'name, email, id'}, function(data) {
-                  console.log(data.name + data.email + data.id);
-                  $.post( "http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php",{ name: data.name, email:data.email, id:data.id }).done(function( result ) {
-                      console.log(result);
+                FB.api('/me', {
+                    fields: 'name, email, id'
+                }, function(data) {
+                    console.log(data.name + data.email + data.id);
+                    $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php", {
+                        name: data.name,
+                        email: data.email,
+                        id: data.id
+                    }).done(function(result) {
+                        console.log(result);
                     });
                 });
-            }, {scope: 'email,user_friends,friends_location'});
-            
+            }, {
+                scope: 'email,user_friends,friends_location'
+            });
+
         } else {
             // In this case, the person is not logged into Facebook, so we call the login() 
             // function to prompt them to do so. Note that at this stage there is no indication
@@ -57,10 +71,16 @@ window.fbAsyncInit = function() {
             // The same caveats as above apply to the FB.login() call here.
             document.getElementById("facebookLogout").style.display = "none";
             FB.login(function(response) {
-                 FB.api('/me', {fields: 'name, email, id'}, function(data) {
-                  console.log(data.name + data.email + data.id);
-                  $.post( "http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php",{ name: data.name, email:data.email, id:data.id }).done(function( result ) {
-                      console.log(result);
+                FB.api('/me', {
+                    fields: 'name, email, id'
+                }, function(data) {
+                    console.log(data.name + data.email + data.id);
+                    $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php", {
+                        name: data.name,
+                        email: data.email,
+                        id: data.id
+                    }).done(function(result) {
+                        console.log(result);
                     });
                 });
             });
@@ -88,7 +108,7 @@ window.fbAsyncInit = function() {
  */
 function facebookLogout() {
     FB.logout(function(response) {
-        if(response){
+        if (response) {
             document.location.reload();
         }
     });
@@ -117,12 +137,12 @@ function findFriends() {
                     //stores each friend as a json object. The fields include name, id and location.
                     var friend = {
                         'name': response.data[i].name,
-                        'id':response.data[i].id,
+                        'id': response.data[i].id,
                         'location': loc
                     }
                     globalFriends.push(friend);
-                    if(loc!=="Null"){
-                        locationDict[loc]=loc;
+                    if (loc !== "Null") {
+                        locationDict[loc] = loc;
                     }
                 }
                 /*
@@ -142,7 +162,7 @@ function findFriends() {
                     });
 
                 }*/
-               
+
             } else {
                 console.log("Failed to get friend IDs");
             }
@@ -174,13 +194,13 @@ function printFriends() {
  * Send Facebook Message
  */
 function sendMessage() {
-  console.log("send Facebook Message");
-  selectFriends();
-  FB.ui({
-  	method: 'send',
-  	link: 'http://web.engr.illinois.edu/~zhang369/wot//trunk/',
-  	to: selectFbId
-  });
+    console.log("send Facebook Message");
+    selectFriends();
+    FB.ui({
+        method: 'send',
+        link: 'http://web.engr.illinois.edu/~zhang369/wot//trunk/',
+        to: selectFbId
+    });
 }
 
 /*
@@ -189,18 +209,22 @@ function sendMessage() {
 function selectFriends() {
     console.log("select Friends");
     for (var i = 0; i < numFriendsInCity; i++) {
-        var selected = document.getElementById("friend"+i).checked;
+        var selected = document.getElementById("friend" + i).checked;
         if (selected) {
             selectFbId = filterFriends[i].id;
-            console.log("selected " + document.getElementById("friend"+i).value);
+            console.log("selected " + document.getElementById("friend" + i).value);
         }
     }
 }
 
 
-function addNewUsertoDb(id,name,email){
-    $.post( "./php/addNewUsertoDb.php", { id:id, name: name, email:email }, function( data ) {
-      $( ".result" ).html( data );
+function addNewUsertoDb(id, name, email) {
+    $.post("./php/addNewUsertoDb.php", {
+        id: id,
+        name: name,
+        email: email
+    }, function(data) {
+        $(".result").html(data);
     });
 
 }
