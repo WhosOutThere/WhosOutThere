@@ -1,3 +1,4 @@
+/*
 var filterFriends = new Array();
 
 function showFriendList(address) {
@@ -11,5 +12,6 @@ function showFriendList(address) {
         }
     }
     console.log(filterFriends);
+
     return filterFriends;
-}
+}*/
