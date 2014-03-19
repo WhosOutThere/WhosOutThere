@@ -1,4 +1,4 @@
-QUnit.test( "sendEmail test", function( assert ) {
+QUnit.test( "testEmailFormat", function( assert ) {
  	var sendList="abc@gmail.com;efg@sina.com;test@illinois.edu";
 	function test( sendList ) {
 		var emailArray = sendList.split(";");
@@ -10,7 +10,7 @@ QUnit.test( "sendEmail test", function( assert ) {
 	assert.equal(String(emailArray[2]).indexOf(".edu")==13,true,"Email contains edu");
 });
 
-QUnit.test("sendEmail test2",function(assert){
+QUnit.test("testInvalidEmailAddress",function(assert){
 	var sendList="asdf@;werosd@sina.com";
 	function test(sendList){
 		var emailArray = sendList.split(";");
@@ -21,7 +21,7 @@ QUnit.test("sendEmail test2",function(assert){
 	assert.equal(emailArray[1].indexOf("@")>-1,true,"Valid email address");
 });
 
-QUnit.test("sendTheEmail test",function(assert){
+QUnit.test("testSendTheEmailFunction",function(assert){
 	
 	function test(){
 		var address = "123@163.com;wercool@gmail.com";
