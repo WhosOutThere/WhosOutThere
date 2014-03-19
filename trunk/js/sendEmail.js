@@ -8,16 +8,20 @@ var m = new mandrill.Mandrill('bVkQiTTlVFArlVrFvK7tZQ');
 
 
 
-
+//the actual function to send email 
 function sendTheMail() {
 // Send the email!
+    //address stores the email string that user inputs
     var address = document.getElementById("email-address").value;
+    //subject stores the email subject that user inputs
     var subject = document.getElementById("email-title").value;
+    //content stores the email message that user inputs
     var content = document.getElementById("email-content").value
     
     var emailArray = address.split(";");
     var global_sendlist = new Array();
 
+    //convert the user input address to json format
     for (var i=0; i<emailArray.length; i++) {
     	var sendobj = {};
     	sendobj['email'] = emailArray[i];
