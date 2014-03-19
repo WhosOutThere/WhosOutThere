@@ -70,7 +70,7 @@ function showAddress(event, fn) {
 
             //adds an onclick listener to the marker. Opens a modal when the marker is clicked.
             google.maps.event.addListener(marker, 'click', function() {
-                if (filterFriends.length === 0) {
+                if (friendList.filterFriends.length === 0) {
                     alert("You do not have any friends living here!");
                 } else {
 
@@ -84,12 +84,13 @@ function showAddress(event, fn) {
 
                     document.getElementById("filteredFriends").innerHTML = "";
                     numFriendsInCity = 0;
-                    for (var i = 0; i < filterFriends.length; i++) {
-                        var friend = "<label class=\"btn btn-primary\"><input type=\"radio\" value=\"" + filterFriends[i].name + "\" id=\"friend" + i + "\">" +
-                            filterFriends[i].name +
+                    for (var i = 0; i < friendList.filterFriends.length; i++) {
+                        var friend = "<label class=\"btn btn-primary\"><input type=\"radio\" value=\"" + friendList.filterFriends[i].name + "\" id=\"friend" + i + "\">" +
+                            friendList.filterFriends[i].name +
                             "</label>"
                         document.getElementById("filteredFriends").innerHTML += friend;
                         numFriendsInCity += 1;
+                        friendList.numFriendsInCity += 1;
                     }
 
 
@@ -109,6 +110,7 @@ function showAddress(event, fn) {
         }
     });
 
-    showFriendList(address);
+    //showFriendList(address);
+    friendList.showFriendList(address);
     document.getElementById("query").value = "";
 }

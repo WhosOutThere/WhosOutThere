@@ -53,7 +53,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><fb:login-button width="200" max-rows="1" scope="email, user_friends,friends_location" id="facebookLogin"></fb:login-button></li>
-              <li><button onclick="facebookLogout()" id="facebookLogout">Logout</button></li>
+              <li><button onclick="friendList.FBAPILogout()" id="facebookLogout">Logout</button></li>
               <li><a href="#">Something else here</a></li>
               <li class="divider"></li>
               <li><a href="#">Separated link</a></li>
@@ -83,7 +83,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <!-- Button trigger email modal -->
 	        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Create Email</button>
-          <button onclick="sendMessage()" type="button" class="btn btn-primary">Send Facebook Message</button>
+          <button onclick="friendList.sendMessage(friendList.selectFriends())" type="button" class="btn btn-primary">Send Facebook Message</button>
         </div>
       </div>
     </div>
