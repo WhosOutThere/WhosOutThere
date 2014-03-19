@@ -8,9 +8,9 @@ var friendList;
 window.onload = function() {
     this.fbAsyncInit = function() {
         FB.init({
-            appId: '212944075564919', //shuotian's appID
+            //appId: '212944075564919', //shuotian's appID
             //appId:'359029350906887',    //josh's appID
-            //appId:'227611927429067',    //josh's localhost appid
+            appId:'227611927429067',    //josh's localhost appid
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true // parse XFBML
@@ -211,84 +211,3 @@ function facebookFriends() {
         }
     }
 }
-
-/**
-* Facebook Logout
-* Wrapper around Facebook logout API call and refreshes the page automatically
-*//*
-function facebookLogout() {
-    FB.logout(function(response) {
-        if (response) {
-            document.location.reload();
-        }
-    });
-
-};*/
-
-/**
-* Find Friends
-* Wrapper around Facebook API call to request for a list of friends locations, then store
-* the response inside the globalNames and globalLocations arrays.
-*//*
-function findFriends() {
-    FB.api(
-        "/me/friends", {
-            fields: 'name, location,id'
-        },
-        function(response) {
-            if (response && !response.error) {
-                for (var i = 0; i < response.data.length; i++) {
-                    var loc = "";
-                    if (response.data[i].location) {
-                        loc = response.data[i].location.name;
-                    } else {
-                        loc = "Null";
-                    }
-                    //stores each friend as a json object. The fields include name, id and location.
-                    var friend = {
-                        'name': response.data[i].name,
-                        'id': response.data[i].id,
-                        'location': loc
-                    }
-                    globalFriends.push(friend);
-                    if (loc !== "Null") {
-                        locationDict[loc] = loc;
-                    }
-                }
-
-
-            } else {
-                console.log("Failed to get friend IDs");
-            }
-        }
-    );
-};
-*/
-
-/**
-* Send Facebook Message
-*//*
-function sendMessage() {
-    console.log("send Facebook Message");
-    //selectFriends();
-    friendList.selectFriends();
-    FB.ui({
-        method: 'send',
-        link: 'http://web.engr.illinois.edu/~zhang369/wot//trunk/',
-        to: selectFbId
-    });
-}*/
-
-/*
-* Get the selected friend FB id
-*//*
-function selectFriends() {
-    console.log("select Friends");
-    for (var i = 0; i < numFriendsInCity; i++) {
-        var selected = document.getElementById("friend" + i).checked;
-        if (selected) {
-            selectFbId = filterFriends[i].id;
-            console.log("selected " + document.getElementById("friend" + i).value);
-        }
-    }
-}*/
