@@ -1,0 +1,43 @@
+<html>
+<head></head>
+<body>
+	<div id="fb-root"></div>
+
+<!--
+  Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+  present a graphical Login button that triggers the FB.login() function when clicked. -->
+  <p>
+  	<fb:login-button show-faces="true" width="200" max-rows="1" scope="user_friends,friends_location"></fb:login-button>
+  </p>
+
+  <p>
+  	<button onclick="findFriends()">Find Friends</button>
+  </p>
+
+  <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
+</body>
+<script type="text/javascript" src="js/facebookTest.js"></script>
+</html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>WhosOutThere</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyBi3tVYruZaX5g1M5p1ghiHBtdyZ3xzx4w"
+      type="text/javascript"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/list.js"></script>    
+  </head>
+
+  <body onload="initialize()" onunload="GUnload()">
+    <form action="#" onsubmit="showFriendList(this.address.value);showAddress(this.address.value); return false">
+      <p>
+        <input type="text" style="width:350px" name="address" value="" />
+        <input type="submit" value="Go" />
+      </p>
+      <div id="map_canvas" style="width: 600px; height: 400px"></div>
+    </form>
+    <form action="#" onsubmit="showFriendList(this.address.value); return false"/>
+    
+  </body>
+</html>
