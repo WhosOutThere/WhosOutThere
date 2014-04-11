@@ -1,4 +1,6 @@
 <?php
+//run with phpunit --bootstrap functions.php testadditinerary.php
+
 class TestAddItinerary extends PHPUnit_Framework_TestCase{
 
 	public function testAddEmptyItinerary(){
