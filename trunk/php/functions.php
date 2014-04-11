@@ -57,6 +57,9 @@ function addItinerary($param, $con){
 }
 
 function getItinerary($user_id, $con){
+	if(empty($user_id)){
+		return -1;
+	}
 	$user_id = (int)$user_id;
 	$output = array();
 	$query = "SELECT id,title FROM Itinerary WHERE user_id='$user_id'";

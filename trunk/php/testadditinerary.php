@@ -18,5 +18,11 @@ class TestAddItinerary extends PHPUnit_Framework_TestCase{
 		$con = "";
 		$this->assertEquals(addItinerary($param,$con), -1);
 	}
+
+	public function testGetItineraryWithInvalidUserId(){
+		$user_id = "";
+		$con = "";
+		$this->assertEquals(getItinerary($user_id,$con), -1);
+	}
 }
 ?>
