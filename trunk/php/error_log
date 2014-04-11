@@ -82,3 +82,5 @@
 [11-Apr-2014 00:06:40 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/heng3/public_html/whosoutthere/php/functions.php on line 40
 [11-Apr-2014 00:09:26 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/heng3/public_html/whosoutthere/php/functions.php on line 46
 [11-Apr-2014 03:28:43 America/Chicago] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/heng3/public_html/whosoutthere/php/functions.php on line 65
+[11-Apr-2014 14:20:29 America/Chicago] PHP Parse error:  syntax error, unexpected '{' in /home/heng3/public_html/whosoutthere/php/functions.php on line 60
+[11-Apr-2014 14:20:30 America/Chicago] PHP Parse error:  syntax error, unexpected '{' in /home/heng3/public_html/whosoutthere/php/functions.php on line 60

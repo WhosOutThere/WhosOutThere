@@ -29,7 +29,7 @@ function addItinerary($param, $con){
 	$title = $obj->{'Title'};
 	$meetings = $obj->{'meetings'};
 	$user_id = (int)$obj->{'FBid'};
-	if(empty($title) || empty($meetings) ||getType($title)!="string"){
+	if(empty($title) || empty($meetings){
 		return -1;
 	}
 	//insert itinerary into db
@@ -57,7 +57,7 @@ function addItinerary($param, $con){
 }
 
 function getItinerary($user_id, $con){
-	if(empty($user_id) || getType($user_id)!="integer"){
+	if(empty($user_id)){
 		return -1;
 	}
 	$user_id = (int)$user_id;
