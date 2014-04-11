@@ -30,7 +30,7 @@ function createItinerary() {
 
     itinerary.FBid = friendList.FBid;
 
-    $.post("./php/addNewItinerary.php", {
+    $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewItinerary.php", {
         param: JSON.stringify(itinerary)
     }).done(function(data) {
         console.log(data);
@@ -49,12 +49,15 @@ function addCity() {
     var date = document.getElementById("date").value;
     var friends = document.getElementById("friends").value;
 
+    // Test for incorrect time format eg. 123:123 etc. Regex looks for (two digits:two digits)
     var correctTime = /^\d\d:\d\d$/.test(time);
     //console.log(correctTime);
 
+    // Test for incorrect date format. Regex looks for mm/dd/yyyy. mm goes between 00 and 19, dd goes between 00 and 39, yyyy goes between 2000 and 2099.
     var correctDate = /^[01][0-9]\/[0-3][0-9]\/[2][0][0-9][0-9]$/.test(date);
     //console.log(correctDate);
 
+    // This will send a pop up alert and return false
     if (!correctTime || !correctDate) {
         window.alert("Invalid Time or Date!");
         return false;
