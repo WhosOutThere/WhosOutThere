@@ -10,7 +10,9 @@ window.onload = function() {
         FB.init({
             //appId: '212944075564919', //shuotian's appID
             //appId:'359029350906887',    //josh's appID
-            appId:'227611927429067',    //josh's localhost appid
+            //appId:'227611927429067',    //josh's localhost appid
+             appId:'233115406876157',
+
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true // parse XFBML
