@@ -5,14 +5,16 @@ class TestAddNewUser extends PHPUnit_Framework_TestCase{
 		$name = "";
 		$id = 0;
 		$email = "";
-		$this->assertEquals(addNewUser($name,$id,$email), -1);
+		$con = "";
+		$this->assertEquals(addNewUser($name,$id,$email, $con), -1);
 	}
 
 	public function testAddInvalidParam(){
 		$name = 54353;
 		$id = "34324";
 		$email = "test@test.com";
-		$this->assertEquals(addNewUser($name,$id,$email), -1);
+		$con = "";
+		$this->assertEquals(addNewUser($name,$id,$email, $con), -1);
 	}
 }
 ?>
