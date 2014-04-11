@@ -22,11 +22,16 @@ function addNewUser($name, $id, $email,$con){
 }
 
 function addItinerary($param, $con){
+	if(empty($param)){
+		return -1;
+	}
 	$obj = json_decode($param);
 	$title = $obj->{'Title'};
 	$meetings = $obj->{'meetings'};
 	$user_id = (int)$obj->{'FBid'};
-
+	if(empty($title) || empty($meetings)){
+		return -1;
+	}
 	//insert itinerary into db
 	$query = "INSERT INTO Itinerary (title, user_id) VALUES ('$title','$user_id')";
 
@@ -52,6 +57,9 @@ function addItinerary($param, $con){
 }
 
 function getItinerary($user_id, $con){
+	if(empty($user_id)){
+		return -1;
+	}
 	$user_id = (int)$user_id;
 	$output = array();
 	$query = "SELECT id,title FROM Itinerary WHERE user_id='$user_id'";
