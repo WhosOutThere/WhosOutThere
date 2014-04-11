@@ -2,18 +2,18 @@
   var roadTripCity=["CHICAGO","NEWYORK"];   
 
   
- test( "displayItinerary1", function() {
-     var trips=[];
-     showItinerary(trips); 
-     var result=document.getElementById("Itinerary").value;
-  equal(result,"No itineraies displayed", "Not available" );  
+ test( "displayItinerary1 not logged in", function() {
+  friendList.fbid = -12323; 
+    equal(showItinerary(),false, "invalid fb id" );  
 });
   
-   test( "displayItinerary2", function() {
-     var trips=["roadtrip"];
-     showItinerary(trips); 
-     var result=document.getElementById(trips[0]).innerHTML;
-     equal(result,"roadtrip", "addOneTrip" );  
+   test( "displayItinerary2 no itineraries", function() {
+     showItinerary(); 
+     var result=document.getElementById("Itinerary").innerHTML;
+     if(result != "")
+      equal(result,"No itineraies displayed", "no trips in the database" );
+      else
+        ok(true, "Has itineraries");
 });
 
  test( "displayItinerary3", function() {

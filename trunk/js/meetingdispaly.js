@@ -1,5 +1,8 @@
 function showItinerary() {
 	var fbid = friendList.FBid;
+	if(fbid <= 0){
+		return false;
+	}
 	$.get("http://web.engr.illinois.edu/~heng3/whosoutthere/php/getItinerary.php", {
 		id: fbid
 	}).done(function(data) {

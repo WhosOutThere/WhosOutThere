@@ -48,6 +48,10 @@ function addCity() {
     var time = document.getElementById("time").value;
     var date = document.getElementById("date").value;
     var friends = document.getElementById("friends").value;
+    if(itineraryTitle =="" || cityName =="" || location =="" ||friends ==""){
+        console.log("cannot add itinerary with empty fields");
+        return false;
+    }
 
     // Test for incorrect time format eg. 123:123 etc. Regex looks for (two digits:two digits)
     var correctTime = /^\d\d:\d\d$/.test(time);
