@@ -8,9 +8,9 @@ var friendList;
 window.onload = function() {
     this.fbAsyncInit = function() {
         FB.init({
-            //appId: '212944075564919', //shuotian's appID
+            appId: '212944075564919', //shuotian's appID
             //appId:'359029350906887',    //josh's appID
-            appId:'227611927429067',    //josh's localhost appid
+            //appId:'227611927429067',    //josh's localhost appid
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
             xfbml: true // parse XFBML
@@ -43,6 +43,7 @@ window.onload = function() {
                 });
                 //findFriends();
                 friendList = new facebookFriends();
+                friendList.FBAPIGetFBid();
                 friendList.FBAPIFindFriends(friendList.friends, friendList.locationDict);
 
 
@@ -131,6 +132,7 @@ function addNewUsertoDb(id, name, email) {
 
 function facebookFriends() {
     // Data Elements
+    this.FBid = 0;
     this.friends = new Array();
     this.filterFriends = new Array();
     this.locationDict = {};
@@ -138,16 +140,26 @@ function facebookFriends() {
     this.numFriendsInCity = 0;
 
     // Class Methods
+    this.FBAPIGetFBid = FBAPIGetFBid;
     this.FBAPIFindFriends = FBAPIFindFriends;
     this.FBAPILogout = FBAPILogout;
     this.selectFriends = selectFriends;
     this.sendMessage = sendMessage;
     this.showFriendList = showFriendList;
 
+    function FBAPIGetFBid() {
+        FB.api('/me', {
+            fields: 'id'
+        }, function(data) {
+            friendList.FBid = data.id;
+        });
+    }
+
     function FBAPIFindFriends(friends, locationDict) {
         FB.api(
-            "/me/friends",
-            {fields: 'name, location,id'},
+            "/me/friends", {
+                fields: 'name, location,id'
+            },
             function(response) {
                 if (response && !response.error) {
                     for (var i = 0; i < response.data.length; i++) {
