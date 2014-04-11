@@ -1,4 +1,49 @@
   var friendList= new facebookFriends();
+  var roadTripCity=["CHICAGO","NEWYORK"];   
+
+  
+ test( "displayItinerary1", function() {
+     var trips=[];
+     showItinerary(trips); 
+     var result=document.getElementById("Itinerary").value;
+  equal(result,"No itineraies displayed", "Not available" );  
+});
+  
+   test( "displayItinerary2", function() {
+     var trips=["roadtrip"];
+     showItinerary(trips); 
+     var result=document.getElementById(trips[0]).innerHTML;
+     equal(result,"roadtrip", "addOneTrip" );  
+});
+
+ test( "displayItinerary3", function() {
+     var trips=["roadtrip"];
+     showItinerary(trips); 
+     var result=document.getElementById(trips[0]).innerHTML;
+     notEqual(result,"fligttrip","wrongTrip");
+});
+   test( "displayItinerary4", function() {
+     var trips=["roadtrip","fligttrip"];
+     showItinerary(trips); 
+     var result=document.getElementById(trips[0]).innerHTML;
+     var result1=document.getElementById(trips[1]).innerHTML;
+     notEqual(result,trips[1], "Notsametrip" );  
+});
+
+ test( "displayItinerary5", function() {
+     var trips=["roadtrip","fligttrip"];
+     showItinerary(trips); 
+     var result=document.getElementById(trips[0]).innerHTML;
+     var result1=document.getElementById(trips[1]).innerHTML;
+     notEqual(result1,trips[0],"Notsametrip");
+});
+
+
+ 
+  
+  
+  
+  
    test( "sendMessageTest1", function() {
      var friend0 = {
     'name':"Sherlock Holmes ",
@@ -10,7 +55,7 @@
     'location':'London, UK',
     'id':33423523
   }
-  
+
   
    friendList.showFriendList("London");	
    equal(friendList.filterFriends.length, 0, "WithOutPushIntoFriendsArray!");
