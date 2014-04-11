@@ -23,7 +23,7 @@ function addNewUser($name, $id, $email,$con){
 
 function addItinerary($param, $con){
 	$obj = json_decode($param);
-	$title = $obj->{'title'};
+	$title = $obj->{'Title'};
 	$meetings = $obj->{'meetings'};
 	$user_id = (int)$obj->{'FBid'};
 
@@ -53,10 +53,29 @@ function addItinerary($param, $con){
 
 function getItinerary($user_id, $con){
 	$user_id = (int)$user_id;
+	$output = array();
+	$query = "SELECT id,title FROM Itinerary WHERE user_id='$user_id'";
+	$itineraryresult = mysqli_query($con,$query);
+	while($row = mysqli_fetch_array($itineraryresult)){
+		$output[$row['id']] = array($row['title'],array());
+	}
+	
 	$query = "SELECT * FROM Meeting WHERE itinerary_id in (SELECT id FROM Itinerary WHERE user_id = '$user_id')";
 	$result = mysqli_query($con,$query);
 	while($row = mysqli_fetch_array($result)){
-		echo $row;
+		$object = createMeeting($row);
+		array_push($output[$row['itinerary_id']][1],$object);
 	}
+	echo json_encode($output);
+}
+
+function createMeeting($row){
+	$object = new stdClass();
+	$object->location = $row['location'];
+	$object->city = $row['city'];
+	$object->time = $row['time'];
+	$object->date = $row['date'];
+	$object->friend_name = $row['friend_name'];
+	return $object;
 }
 ?>
