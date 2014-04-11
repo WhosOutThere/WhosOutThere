@@ -129,6 +129,39 @@ function addNewUsertoDb(id, name, email) {
 
 }
 
+function testphp(event){
+    event.preventDefault();
+    var itinerary={
+    'title':'test title',
+    'FBid':541,
+    'meetings':[
+            {
+                'city':'Chicago, IL',
+                'location':'Starbucks on Adams street',
+                'date':'04/31/14',
+                'time':'9pm',
+                'friends':[
+                        {
+                            'name':'John',
+                            'fbid':123456
+                        },
+                        {
+                            'name':'Tim',
+                            'fbid':4354353
+                        }
+                ]
+            }
+    ]
+};
+
+    $.post("./php/addNewItinerary.php", {
+        param:JSON.stringify(itinerary)
+    }).done(function(data){
+        console.log(data);
+        return false;
+    });
+}
+
 function facebookFriends() {
     // Data Elements
     this.friends = new Array();

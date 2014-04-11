@@ -1,4 +1,4 @@
-  initialize();
+initialize();
   document.getElementById("query").value = "Champaign";
   var event, $submitButton = $( "#submit" );
   // trigger event

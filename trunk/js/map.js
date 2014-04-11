@@ -24,6 +24,28 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 function showAddress(event, fn) {
+    /*var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+      if (geocoder) {
+        geocoder.getLatLng(
+          address,
+          function(point) {
+            if (!point) {
+              alert(address + " not found");
+            } else {
+              map.setCenter(point, 15);
+              var marker = new GMarker(point, {draggable: true});
+              map.addOverlay(marker);
+              GEvent.addListener(marker, "dragend", function() {
+                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(3));
+              });
+              GEvent.addListener(marker, "click", function() {
+                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(3));
+              });
+	      GEvent.trigger(marker, "click");
+            }
+          }
+        );
+      }*/
     console.log(event);
     event.preventDefault();
 
@@ -76,7 +98,6 @@ function showAddress(event, fn) {
                 }
             });
             markers.push(marker);
-            console.log(results);
             testlatlng = {
                 'lat': results[0].geometry.location.k,
                 'lon': results[0].geometry.location.A
