@@ -29,7 +29,7 @@ function createItinerary() {
     console.log(itineraryObj);*/
 
     itinerary.FBid = friendList.FBid;
-
+    console.log(itinerary);
     $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewItinerary.php", {
         param: JSON.stringify(itinerary)
     }).done(function(data) {

@@ -5,22 +5,52 @@ var testlatlng;
 
 var numFriendsInCity;
 
+var directionsDisplay;
+var directionsService;
+
 function initialize() {
-    /*if (GBrowserIsCompatible()) {
-        map = new GMap2(document.getElementById("map_canvas"));
-        map.setCenter(new GLatLng(37.4419, -122.1419), 1);
-        map.setUIToDefault();
-        geocoder = new GClientGeocoder();
-      }*/
+    directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer();
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
         center: new google.maps.LatLng(40.00, 260.000),
         zoom: 4
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('directions-panel'));
+
+  var control = document.getElementById('control');
+  control.style.display = 'block';
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+
+function firstRoute(end,event) {
+  
+  event.preventDefault();
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+    var request = {
+    origin: pos,
+    destination: end,
+    travelMode: google.maps.TravelMode.DRIVING
+  };
+  console.log(request);
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  }
+  
+  
+}
 
 
 function showAddress(event, fn) {
