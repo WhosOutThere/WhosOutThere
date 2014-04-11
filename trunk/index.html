@@ -122,33 +122,72 @@
             <input type="text" class="form-control" placeholder="Title. eg. My summer 2014 road trip" id="itinerary-title">
           </div>
           </br>
+          <!--
           <div class="input-group">
             <span class="input-group-addon">City</span>
             <input type="text" class="form-control" placeholder="City name, eg. Seattle." id="city-name">
           </div>
-          </br>
+
           <div class="input-group">
             <span class="input-group-addon">Location</span>
             <input class="form-control" placeholder="Location, eg. Starbucks." id="location"></textarea>
           </div>
-          </br>
+
           <div class="input-group">
             <span class="input-group-addon">Time</span>
             <input type = "time" class="form-control" id="time"></textarea>
           </div>
-          </br>
+
           <div class="input-group">
             <span class="input-group-addon">Date</span>
             <input type = "date" class="form-control" id="date"></textarea>
           </div>       
-          </br>
+
           <div class="input-group">
-            <span class="input-group-addon">Friends</span>
+            <span class="input-group-addon">    Friends    </span>
             <input class="form-control" placeholder="Friends name" id="friends"></textarea>
-          </div>   
+          </div>
+          -->
+
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="city" class="col-sm-2 control-label">City</label>
+              <div class="col-sm-10">
+              <input type="text" class="form-control" id="city-name" placeholder="City name, eg. Seattle.">
+              </div>
+              <label for="location" class="col-sm-2 control-label">Location</label>
+              <div class="col-sm-10">
+              <input type="text" class="form-control" id="location" placeholder="Location, eg. Starbucks.">
+              </div>
+              <label for="time" class="col-sm-2 control-label">Time</label>
+              <div class="col-sm-10">
+              <input type="text" class="form-control" id="time" placeholder="hh:mm">
+              </div>
+              <label for="date" class="col-sm-2 control-label">Date</label>
+              <div class="col-sm-10">
+              <input type="text" class="form-control" id="date" placeholder="mm/dd/yyyy">
+              </div>
+              <label for="friends" class="col-sm-2 control-label">Friends</label>
+              <div class="col-sm-10">
+              <input type="text" class="form-control" id="friends" placeholder="Friend1, Friend2, Friend3...">
+              </div>
+            </div>
+          </form>
+
+          <table id="added-cities" class="table">
+            <tr>
+              <th>City</th>
+              <th>Location</th>
+              <th>Time</th>
+              <th>Date</th>
+              <th>Friends</th>
+            </tr>
+          </table>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default" onclick="addCity()">Add City</button>
           <button type="button" class="btn btn-primary" onclick="createItinerary()" data-dismiss="modal">Create my itinerary</button>
         </div>
       </div>
