@@ -100,3 +100,11 @@ span.cell {
           width: auto;
         }
       }
+
+.pac-container {
+	z-index: 10000;
+}
+/*
+#ui-datepicker-div {
+	background-color: black;
+}*/

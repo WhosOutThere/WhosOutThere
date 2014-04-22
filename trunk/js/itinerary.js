@@ -48,7 +48,7 @@ function addCity() {
     var time = document.getElementById("time").value;
     var date = document.getElementById("date").value;
     var friends = document.getElementById("friends").value;
-    if(itineraryTitle =="" || cityName =="" || location =="" ||friends ==""){
+    if (itineraryTitle == "" || cityName == "" || location == "" || friends == "") {
         console.log("cannot add itinerary with empty fields");
         return false;
     }
@@ -99,3 +99,20 @@ function addCity() {
 
     return true;
 }
+
+var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+var checkin = $('#date').datepicker({
+    onRender: function(date) {
+        return date.valueOf() < now.valueOf() ? 'disabled' : '';
+    }
+}).on('changeDate', function(ev) {
+    if (ev.date.valueOf() > checkout.date.valueOf()) {
+        var newDate = new Date(ev.date)
+        newDate.setDate(newDate.getDate() + 1);
+        checkout.setValue(newDate);
+    }
+    checkin.hide();
+    $('#date')[0].focus();
+}).data('datepicker');
