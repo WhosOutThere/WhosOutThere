@@ -108,3 +108,13 @@ span.cell {
 #ui-datepicker-div {
 	background-color: black;
 }*/
+
+.ui-autocomplete{
+	z-index:10000;
+	overflow-y: scroll;
+	height: 300px;
+}
+
+.ui-autocomplete .ui-front .ui-menu .ui-widget .ui-widget-content .ui-corner-all{
+	z-index:10000;
+}
