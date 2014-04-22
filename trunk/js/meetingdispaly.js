@@ -35,7 +35,7 @@ function showItinerary() {
 				//input field for selecting the friend you want to share itinerary with
 				meeting+="<input class=\"share-itinerary-friend\" id=\"share-itinerary-friend"+key+"\" placeholder=\"Enter friend's name\"></input>";
 				//button to share itinerary with
-				meeting+="<button onclick=\"shareItinerary("+key+")\">Share Itinerary</button>";
+				meeting+="<button id=\"shareitbtn"+key+"\" onclick=\"shareItinerary("+key+")\">Share Itinerary</button>";
 				unit+= meeting+"</div></div></div>"
 				document.getElementById("Itinerary").innerHTML += unit;
 			}
@@ -70,9 +70,8 @@ function renderFbListInDropdown(itineraryid){
         console.log(ui.item.value );
  		for(key in globalmeetings){
  			if(key==parseInt(itineraryid)){
- 				console.log("Share itinerary");
- 				console.log(globalmeetings[key]);
- 				//TO BE FINISHED. FORMAT MEETING AND SEND VIA FB MESSAGE
+ 				$("#shareitbtn"+key).attr('onclick',"shareItinerary("+key+","+ui.item.value+")");
+ 				//$("#feedform_user_message").html(sharecontent);
  			}
  		}
         return false;
@@ -83,4 +82,26 @@ function renderFbListInDropdown(itineraryid){
         .append( "<a>" + item.label +"</a>" )
         .appendTo( ul );
     };
+}
+
+function formatMeeting(meeting){
+	var title = meeting[0];
+	var meetings = meeting[1];
+	var output = ""
+	output += title + "\n\n";
+	for(var i = 0; i < meetings.length; i++){
+		output+="City: " + meetings[i].city + "\n";
+		output+="Date: " + meetings[i].date + "\n";
+		output+="Time: " + meetings[i].time + "\n";
+		output+="\n";
+	}
+	return output;
+}
+
+function shareItinerary(key,fbid){
+	var sharecontent = formatMeeting(globalmeetings[key]);
+	console.log(sharecontent);
+	console.log(fbid);
+	friendList.sendMessage(fbid);
+	$(".uiTextareaAutogrow").html(sharecontent);
 }
