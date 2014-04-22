@@ -8,8 +8,8 @@ var friendList;
 window.onload = function() {
     this.fbAsyncInit = function() {
         FB.init({
-            appId: '212944075564919', //shuotian's appID
-            //appId:'359029350906887',    //josh's appID
+            //appId: '212944075564919', //shuotian's appID
+            appId:'359029350906887',    //josh's appID
             //appId:'227611927429067',    //josh's localhost appid
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
@@ -204,12 +204,13 @@ function facebookFriends() {
         }
     }
 
-    function sendMessage(recepient) {
+    function sendMessage(recepient,url) {
         FB.ui({
             method: 'send',
-            link: 'http://web.engr.illinois.edu/~zhang369/wot//trunk/',
+            link: url,
             to: recepient
         });
+        //'http://web.engr.illinois.edu/~zhang369/wot//trunk/'
     }
 
     function showFriendList(address) {

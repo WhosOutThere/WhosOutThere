@@ -49,7 +49,7 @@ function addItinerary($param, $con){
 		$time = $meeting->{'time'};
 		$friend_name = $meeting->{'friends'};
 		$friend_id = 0;
-		$query = "INSERT INTO Meeting (city,location,time,date,friend_id,friend_name,itinerary_id) VALUES ('$city','$location','$date','$time','$friend_id','$friend_name','$itineraryid')";
+		$query = "INSERT INTO Meeting (city,location,time,date,friend_id,friend_name,itinerary_id) VALUES ('$city','$location','$time','$date','$friend_id','$friend_name','$itineraryid')";
 		if(!mysqli_query($con, $query)){
 			die('Error: ' . mysqli_error($con));
 		}
