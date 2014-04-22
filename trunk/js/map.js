@@ -20,10 +20,6 @@ function initialize() {
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
-  var control = document.getElementById('control');
-  control.style.display = 'block';
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 

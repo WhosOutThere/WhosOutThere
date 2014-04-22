@@ -85,11 +85,17 @@ function renderFbListInDropdown(itineraryid){
 }
 
 function formatMeeting(meeting){
+	if(meeting.length==0){
+		return false;
+	}
 	var title = meeting[0];
 	var meetings = meeting[1];
 	var output = ""
 	output += title + "\n\n";
 	for(var i = 0; i < meetings.length; i++){
+		if(meetings[i].city==""||meetings[i].date==""||meetings[i].time==""){
+			return false;
+		}
 		output+="City: " + meetings[i].city + "\n";
 		output+="Date: " + meetings[i].date + "\n";
 		output+="Time: " + meetings[i].time + "\n";
@@ -99,9 +105,18 @@ function formatMeeting(meeting){
 }
 
 function shareItinerary(key,fbid){
+	if(fbid == null){
+		console.log("No Fbid");
+		return false;
+	}
+	if(key < 0){
+		return false;
+	}
 	var sharecontent = formatMeeting(globalmeetings[key]);
 	console.log(sharecontent);
 	console.log(fbid);
-	friendList.sendMessage(fbid);
-	$(".uiTextareaAutogrow").html(sharecontent);
+	var url = "http://web.engr.illinois.edu/~heng3/whosoutthere/shareditinerary.html?itineraryid="+key+"&fid="+friendList.FBid;
+	friendList.sendMessage(fbid,url);
+	console.log("SUCCESS");
+	return "SUCCESS";
 }

@@ -204,12 +204,13 @@ function facebookFriends() {
         }
     }
 
-    function sendMessage(recepient) {
+    function sendMessage(recepient,url) {
         FB.ui({
             method: 'send',
-            link: 'http://web.engr.illinois.edu/~zhang369/wot//trunk/',
+            link: url,
             to: recepient
         });
+        //'http://web.engr.illinois.edu/~zhang369/wot//trunk/'
     }
 
     function showFriendList(address) {
