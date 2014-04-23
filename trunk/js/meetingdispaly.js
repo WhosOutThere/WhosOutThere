@@ -1,5 +1,24 @@
 var globalmeetings = {};
 
+//refactored function. Was duplicated in meetingdisplay.js and itinerary.js
+function createFriendsDropdownArray(type,fbfriends){
+	var output = [];
+	for(var i = 0; i < fbfriends.length; i++){
+		if(type=="SINGLE"){
+			var friend = {
+			'value':fbfriends[i].id,
+			'label':fbfriends[i].name
+			};
+			output.push(friend);
+		}
+		else{
+			var friend = fbfriends[i].name;
+        	output.push(friend);
+		}
+	}
+	return output;
+	
+}
 function showItinerary() {
 	var fbid = friendList.FBid;
 	if(fbid <= 0){
@@ -54,14 +73,8 @@ function renderFbListInDropdown(itineraryid){
 	var inputid = "#share-itinerary-friend"+itineraryid;
 	console.log(inputid);
 	console.log(fbfriends);
-	var friends = [];
-	for(var i = 0; i < fbfriends.length; i++){
-		var friend = {
-			'value':fbfriends[i].id,
-			'label':fbfriends[i].name
-		};
-		friends.push(friend);
-	}
+	var friends = createFriendsDropdownArray("SINGLE",fbfriends);
+	
     $( "#share-itinerary-friend"+itineraryid ).autocomplete({
       minLength: 0,
       source: friends,
@@ -138,7 +151,7 @@ function getWeather(uniqueId, city, event){
 			var more_info = parsed_json['current_observation']['forecast_url'];
 			var content = "<p>Current weather in " + location + " is "+ weather +"<br>" +
 				      "The current temperature is " + temperature + "<br>" +
-				      "For more information, visit " + "<a href=\"" + more_info + "\" target=\"_blank\">"+location+" weather" +"</a></p><hr>";
+				      "For more information, visit " + "<a href=\"" + more_info + "\" target=\"_blank\">"+location+" weather" +"</a></p>";
 			console.log(content);
 			
 			$("#"+uniqueId).html(content);
