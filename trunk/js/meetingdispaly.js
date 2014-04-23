@@ -30,7 +30,11 @@ function showItinerary() {
 					<!--get all friends in the list, if we have a jason object, the friendlist will be coressponded to the correct meeting-->
 					var friends= meetings[j]['friend_name'];
 					meeting+=friends+"</dd><dt>Date</dt><dd>"+meetings[j]['date']+"</dd><dt>Time</dt><dd>"+meetings[j]['time']+"</dd><dt>Location</dt><dd>"+meetings[j]['location']+"</dd></dl>"
-					meeting+="<button onclick=\"firstRoute('"+meetings[j]['location']+", "+meetings[j]['city']+"',event)\">Getting there</button><hr>"
+					meeting+="<button onclick=\"firstRoute('"+meetings[j]['location']+", "+meetings[j]['city']+"',event)\">Getting there</button>"
+				
+					var uniqueid = key+meetings[j]['city'];
+					meeting+="<button onclick=\"getWeather('"+uniqueid+"', '"+meetings[j]['city']+"',event)\">Get Weather</button><hr>";
+					meeting+="<div id=\""+uniqueid+"\"></div>";	
 				}
 				//input field for selecting the friend you want to share itinerary with
 				meeting+="<input class=\"share-itinerary-friend\" id=\"share-itinerary-friend"+key+"\" placeholder=\"Enter friend's name\"></input>";
@@ -119,4 +123,25 @@ function shareItinerary(key,fbid){
 	friendList.sendMessage(fbid,url);
 	console.log("SUCCESS");
 	return "SUCCESS";
+}
+
+function getWeather(uniqueId, city, event){
+	$.ajax({
+		async: false,					
+		url : "http://api.wunderground.com/api/36d24347ff8d7151/geolookup/conditions/q/"+city+".json",
+		dataType : "jsonp",
+		success : function(parsed_json) {
+			var location = parsed_json['location']['city'];
+			var temperature = parsed_json['current_observation']['temperature_string'];
+			var weather = parsed_json['current_observation']['weather'];
+
+			var more_info = parsed_json['current_observation']['forecast_url'];
+			var content = "<p>Current weahter in " + location + " is "+ weather +"<br>" +
+				      "The current temperature is " + temperature + "<br>" +
+				      "For more information, visit " + "<a href=\"" + more_info + "\" target=\"_blank\">"+location+" weather" +"</a></p><hr>";
+			console.log(content);
+			
+			$("#"+uniqueId).html(content);
+			}
+	});
 }
