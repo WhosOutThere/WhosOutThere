@@ -118,12 +118,12 @@ var checkin = $('#date').datepicker({
 }).data('datepicker');
 
 function activateFriendDropdown(){
-    var availableTags = [];
     var fbfriends = friendList.friends;
-    for(var i = 0; i < fbfriends.length; i++){
+    var availableTags = createFriendsDropdownArray("MULTIPLE",fbfriends);
+    /*for(var i = 0; i < fbfriends.length; i++){
         var friend = fbfriends[i].name;
         availableTags.push(friend);
-    }
+    }*/
     console.log(availableTags);
     function split( val ) {
       return val.split( /,\s*/ );
