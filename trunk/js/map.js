@@ -38,6 +38,7 @@ function firstRoute(end,event) {
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
+      $("#displyItinerary").modal('hide');
     }
   });
     }, function() {

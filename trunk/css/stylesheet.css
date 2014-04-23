@@ -118,3 +118,16 @@ span.cell {
 .ui-autocomplete .ui-front .ui-menu .ui-widget .ui-widget-content .ui-corner-all{
 	z-index:10000;
 }
+
+.modal-buttons{
+	margin-top:10px;
+	margin-right:10px;
+}
+
+.share-itinerary-friend{
+	margin-right:10px;
+}
+
+hr{
+	border-color: black
+}

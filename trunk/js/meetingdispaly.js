@@ -25,21 +25,21 @@ function showItinerary() {
 				var element=""
 				var meetings = result[key][1];
 				for (var j=0;j< meetings.length; j++){
-					meeting=meeting+"<strong>"+meetings[j]['city']+"<strong><dl class=\"dl-horizontal\"><dt>Meeting with</dt><dd>"
+					meeting+="<div class=\"well\"><div><h3>"+meetings[j]['city']+"</h3></div><hr>"+"<strong><div>Meeting with: </strong>"
 
 					<!--get all friends in the list, if we have a jason object, the friendlist will be coressponded to the correct meeting-->
 					var friends= meetings[j]['friend_name'];
-					meeting+=friends+"</dd><dt>Date</dt><dd>"+meetings[j]['date']+"</dd><dt>Time</dt><dd>"+meetings[j]['time']+"</dd><dt>Location</dt><dd>"+meetings[j]['location']+"</dd></dl>"
-					meeting+="<button onclick=\"firstRoute('"+meetings[j]['location']+", "+meetings[j]['city']+"',event)\">Getting there</button>"
+					meeting+=friends+"</div><div><strong>Date: </strong>"+meetings[j]['date']+"</div><div><strong>Time: </strong>"+meetings[j]['time']+"</div><div><strong>Location: </strong>"+meetings[j]['location']+"</div>"
+					meeting+="<button class=\"btn btn-default btn-primary modal-buttons\" onclick=\"firstRoute('"+meetings[j]['location']+", "+meetings[j]['city']+"',event)\">Getting there</button>"
 				
 					var uniqueid = key+meetings[j]['city'];
-					meeting+="<button onclick=\"getWeather('"+uniqueid+"', '"+meetings[j]['city']+"',event)\">Get Weather</button><hr>";
-					meeting+="<div id=\""+uniqueid+"\"></div>";	
+					meeting+="<button class=\"btn btn-default btn-primary modal-buttons\" onclick=\"getWeather('"+uniqueid+"', '"+meetings[j]['city']+"',event)\">Get Weather</button>";
+					meeting+="<div id=\""+uniqueid+"\"></div></div>";	
 				}
 				//input field for selecting the friend you want to share itinerary with
-				meeting+="<input class=\"share-itinerary-friend\" id=\"share-itinerary-friend"+key+"\" placeholder=\"Enter friend's name\"></input>";
+				meeting+="<div class=\"input-group\"><input class=\"form-control share-itinerary-friend\" id=\"share-itinerary-friend"+key+"\" placeholder=\"Enter friend's name\"></input>";
 				//button to share itinerary with
-				meeting+="<button id=\"shareitbtn"+key+"\" onclick=\"shareItinerary("+key+")\">Share Itinerary</button>";
+				meeting+="<button class=\"btn btn-default btn-success modal-buttons\" id=\"shareitbtn"+key+"\" onclick=\"shareItinerary("+key+")\">Share Itinerary</button></div>";
 				unit+= meeting+"</div></div></div>"
 				document.getElementById("Itinerary").innerHTML += unit;
 			}
@@ -136,7 +136,7 @@ function getWeather(uniqueId, city, event){
 			var weather = parsed_json['current_observation']['weather'];
 
 			var more_info = parsed_json['current_observation']['forecast_url'];
-			var content = "<p>Current weahter in " + location + " is "+ weather +"<br>" +
+			var content = "<p>Current weather in " + location + " is "+ weather +"<br>" +
 				      "The current temperature is " + temperature + "<br>" +
 				      "For more information, visit " + "<a href=\"" + more_info + "\" target=\"_blank\">"+location+" weather" +"</a></p><hr>";
 			console.log(content);
