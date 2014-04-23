@@ -9,16 +9,14 @@ var directionsDisplay;
 var directionsService;
 
 function initialize() {
-    directionsService = new google.maps.DirectionsService();
-    directionsDisplay = new google.maps.DirectionsRenderer();
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
         center: new google.maps.LatLng(40.00, 260.000),
         zoom: 4
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-    directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById('directions-panel'));
+    //directionsDisplay.setMap(map);
+    //directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
 }
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -26,6 +24,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function firstRoute(end,event) {
   
   event.preventDefault();
+    directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('directions-panel'));
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
     var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
