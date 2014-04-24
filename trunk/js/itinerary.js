@@ -122,6 +122,15 @@ function addCity() {
     return true;
 }
 
+function cancelAddCity() {
+    document.getElementById("itinerary-title").value = "";
+    document.getElementById("city-name").value = "";
+    document.getElementById("location").value = "";
+    document.getElementById("time").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("friends").value = "";
+}
+
 var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
