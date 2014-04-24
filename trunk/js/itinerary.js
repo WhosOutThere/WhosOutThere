@@ -28,8 +28,8 @@ function createItinerary() {
     console.log("The itinerary JSON object is....");
     console.log(itineraryObj);*/
 
-    // Clear the itinerary title
-    document.getElementById("itinerary-title").value = "";
+    // Clear the itinerary fields
+    clearItineraryFields(true);
 
     itinerary.FBid = friendList.FBid;
     console.log(itinerary);
@@ -69,12 +69,55 @@ function addCity() {
         for (trip in result) {
             if (itineraryTitle == result[trip][0]) {
                 window.alert("Trip Already Exists");
+                clearItineraryFields(true);
                 return false;
             }
         }
+        // Test for incorrect time format eg. 123:123 etc. Regex looks for (two digits:two digits)
+        var correctTime = /^\d\d:\d\d$/.test(time);
+        //console.log(correctTime);
+
+        // Test for incorrect date format. Regex looks for mm/dd/yyyy. mm goes between 00 and 19, dd goes between 00 and 39, yyyy goes between 2000 and 2099.
+        var correctDate = /^[01][0-9]\/[0-3][0-9]\/[2][0][0-9][0-9]$/.test(date);
+        //console.log(correctDate);
+
+        // This will send a pop up alert and return false
+        if (!correctTime || !correctDate) {
+            window.alert("Invalid Time or Date!");
+            return false;
+        }
+
+        var curMeeting = {
+            "city": cityName,
+            "location": location,
+            "date": date,
+            "time": time,
+            "friends": friends
+        }
+
+        itinerary.Title = itineraryTitle;
+        itinerary.meetings.push(curMeeting);
+
+        //console.log(curMeeting);
+        //console.log(itinerary)
+
+        clearItineraryFields(false);
+
+        document.getElementById("added-cities").innerHTML +=
+            "<tr>" +
+            "<td>" + cityName + "</td>" +
+            "<td>" + location + "</td>" +
+            "<td>" + time + "</td>" +
+            "<td>" + date + "</td>" +
+            "<td>" + friends + "</td>" +
+            "</tr>";
+
+
+        return true;
+
     });
 
-
+    /*
     // Test for incorrect time format eg. 123:123 etc. Regex looks for (two digits:two digits)
     var correctTime = /^\d\d:\d\d$/.test(time);
     //console.log(correctTime);
@@ -103,11 +146,7 @@ function addCity() {
     //console.log(curMeeting);
     //console.log(itinerary)
 
-    document.getElementById("city-name").value = "";
-    document.getElementById("location").value = "";
-    document.getElementById("time").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("friends").value = "";
+    clearItineraryFields(false);
 
     document.getElementById("added-cities").innerHTML +=
         "<tr>" +
@@ -119,11 +158,13 @@ function addCity() {
         "</tr>";
 
 
-    return true;
+    return true;*/
 }
 
-function cancelAddCity() {
-    document.getElementById("itinerary-title").value = "";
+function clearItineraryFields(clearTitle) {
+    if (clearTitle) {
+        document.getElementById("itinerary-title").value = "";
+    }
     document.getElementById("city-name").value = "";
     document.getElementById("location").value = "";
     document.getElementById("time").value = "";
