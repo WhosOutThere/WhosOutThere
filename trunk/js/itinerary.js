@@ -172,22 +172,7 @@ function clearItineraryFields(clearTitle) {
     document.getElementById("friends").value = "";
 }
 
-var nowTemp = new Date();
-var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-
-var checkin = $('#date').datepicker({
-    onRender: function(date) {
-        return date.valueOf() < now.valueOf() ? 'disabled' : '';
-    }
-}).on('changeDate', function(ev) {
-    if (ev.date.valueOf() > checkout.date.valueOf()) {
-        var newDate = new Date(ev.date)
-        newDate.setDate(newDate.getDate() + 1);
-        checkout.setValue(newDate);
-    }
-    checkin.hide();
-    $('#date')[0].focus();
-}).data('datepicker');
+$('#date').datepicker().data('datepicker');
 
 function activateFriendDropdown() {
     var fbfriends = friendList.friends;
@@ -196,7 +181,7 @@ function activateFriendDropdown() {
         var friend = fbfriends[i].name;
         availableTags.push(friend);
     }*/
-    console.log(availableTags);
+    //console.log(availableTags);
 
     function split(val) {
         return val.split(/,\s*/);
