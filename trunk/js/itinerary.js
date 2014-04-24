@@ -28,6 +28,9 @@ function createItinerary() {
     console.log("The itinerary JSON object is....");
     console.log(itineraryObj);*/
 
+    // Clear the itinerary title
+    document.getElementById("itinerary-title").value = "";
+
     itinerary.FBid = friendList.FBid;
     console.log(itinerary);
     $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewItinerary.php", {
@@ -52,6 +55,25 @@ function addCity() {
         console.log("cannot add itinerary with empty fields");
         return false;
     }
+
+    // Check that itinerary name is valid. We do not want repeated itinerary names
+    var fbid = friendList.FBid;
+    if (fbid <= 0) {
+        // User is not logged in
+        window.alert("Are you logged in?");
+    }
+    $.get("http://web.engr.illinois.edu/~heng3/whosoutthere/php/getItinerary.php", {
+        id: fbid
+    }).done(function(data) {
+        var result = $.parseJSON(data);
+        for (trip in result) {
+            if (itineraryTitle == result[trip][0]) {
+                window.alert("Trip Already Exists");
+                return false;
+            }
+        }
+    });
+
 
     // Test for incorrect time format eg. 123:123 etc. Regex looks for (two digits:two digits)
     var correctTime = /^\d\d:\d\d$/.test(time);
@@ -117,50 +139,52 @@ var checkin = $('#date').datepicker({
     $('#date')[0].focus();
 }).data('datepicker');
 
-function activateFriendDropdown(){
+function activateFriendDropdown() {
     var fbfriends = friendList.friends;
-    var availableTags = createFriendsDropdownArray("MULTIPLE",fbfriends);
+    var availableTags = createFriendsDropdownArray("MULTIPLE", fbfriends);
     /*for(var i = 0; i < fbfriends.length; i++){
         var friend = fbfriends[i].name;
         availableTags.push(friend);
     }*/
     console.log(availableTags);
-    function split( val ) {
-      return val.split( /,\s*/ );
+
+    function split(val) {
+        return val.split(/,\s*/);
     }
-    function extractLast( term ) {
-      return split( term ).pop();
+
+    function extractLast(term) {
+        return split(term).pop();
     }
- 
-    $( "#friends" )
-      // don't navigate away from the field on tab when selecting an item
-      .bind( "keydown", function( event ) {
-        if ( event.keyCode === $.ui.keyCode.TAB &&
-            $( this ).data( "ui-autocomplete" ).menu.active ) {
-          event.preventDefault();
+
+    $("#friends")
+    // don't navigate away from the field on tab when selecting an item
+    .bind("keydown", function(event) {
+        if (event.keyCode === $.ui.keyCode.TAB &&
+            $(this).data("ui-autocomplete").menu.active) {
+            event.preventDefault();
         }
-      })
-      .autocomplete({
-        minLength: 0,
-        source: function( request, response ) {
-          // delegate back to autocomplete, but extract the last term
-          response( $.ui.autocomplete.filter(
-            availableTags, extractLast( request.term ) ) );
-        },
-        focus: function() {
-          // prevent value inserted on focus
-          return false;
-        },
-        select: function( event, ui ) {
-          var terms = split( this.value );
-          // remove the current input
-          terms.pop();
-          // add the selected item
-          terms.push( ui.item.value );
-          // add placeholder to get the comma-and-space at the end
-          terms.push( "" );
-          this.value = terms.join( ", " );
-          return false;
-        }
-      });
+    })
+        .autocomplete({
+            minLength: 0,
+            source: function(request, response) {
+                // delegate back to autocomplete, but extract the last term
+                response($.ui.autocomplete.filter(
+                    availableTags, extractLast(request.term)));
+            },
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+            select: function(event, ui) {
+                var terms = split(this.value);
+                // remove the current input
+                terms.pop();
+                // add the selected item
+                terms.push(ui.item.value);
+                // add placeholder to get the comma-and-space at the end
+                terms.push("");
+                this.value = terms.join(", ");
+                return false;
+            }
+        });
 }
