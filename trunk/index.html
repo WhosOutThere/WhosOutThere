@@ -37,18 +37,11 @@
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createItinerary">Create Itinerary</button>
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#displyItinerary" onclick="showItinerary()" >Itinerary</button>
         </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><fb:login-button width="200" max-rows="1" scope="email, user_friends,friends_location" id="facebookLogin"></fb:login-button></li>
-              <li><button onclick="friendList.FBAPILogout()" id="facebookLogout">Logout</button></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </li>
-        </ul>
+
+        <form class="nav navbar-form navbar-right">
+              <fb:login-button max-rows="1" scope="email, user_friends,friends_location" id="facebookLogin"></fb:login-button>
+              <button onclick="friendList.FBAPILogout()" type="button" class="btn btn-primary" id="facebookLogout">Logout</button>
+        </form>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
