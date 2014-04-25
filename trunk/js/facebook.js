@@ -130,7 +130,11 @@ function addNewUsertoDb(id, name, email) {
 //This function enable user to post status on facebook
 function postToWall() {  
     var description = document.getElementById("description").value;
+<<<<<<< HEAD
     var ret = postDetector();
+=======
+    var ret = postFilter();
+>>>>>>> master
     if (ret==false)
       return
         FB.login(function(response)
@@ -167,7 +171,11 @@ function postToWall() {
 
 //This function checks if the user input has red words or not
 
+<<<<<<< HEAD
 function postDetector(){
+=======
+function postDetecter(){
+>>>>>>> master
   var input = document.getElementById("description").value;
   if        (input.indexOf("Fuck")>-1||input.indexOf("fuck")>-1||input.indexOf("shit")>-1||input.indexOf("devil")>-1||input.indexOf("dumb")>-1||input.indexOf("dope")>-1) {
         alert('Red Word Detected!');
