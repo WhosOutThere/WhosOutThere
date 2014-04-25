@@ -130,11 +130,9 @@ function addNewUsertoDb(id, name, email) {
 //This function enable user to post status on facebook
 function postToWall() {  
     var description = document.getElementById("description").value;
-<<<<<<< HEAD
+
     var ret = postDetector();
-=======
-    var ret = postFilter();
->>>>>>> master
+
     if (ret==false)
       return
         FB.login(function(response)
