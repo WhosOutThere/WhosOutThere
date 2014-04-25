@@ -120,9 +120,10 @@ function showAddress(event, fn) {
                         document.getElementById("filteredFriends").innerHTML += friend;
                         numFriendsInCity += 1;
                         friendList.numFriendsInCity += 1;
+                        console.log(friendList.filterFriends[i].name);
                     }
 
-
+                    document.getElementById("filteredFriends").innerHTML+="Friends should be shown here";
                     $('#myModal').modal('show');
                 }
             });
