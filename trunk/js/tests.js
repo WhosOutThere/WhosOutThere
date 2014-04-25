@@ -9,6 +9,7 @@ initialize();
   var friendList = new facebookFriends();
 
   //Test finding valid address works
+  
   showAddress(event,function(loc){
     var param = loc;
     console.log(param);
@@ -61,9 +62,15 @@ initialize();
     equal(formattedMeeting,false,"No meetings to be formatted");
   });
 
+
+
+ 
+	
+
   //test formatting the strings for sharing itinerary
   test('formatProperMeeting',function(){
     //test proper meeting
+    
     var meeting = ["Test Itinerary",[
         {
           'city':'Chicago',
@@ -104,4 +111,52 @@ initialize();
     //test meeting with missing fields
     var output = shareItinerary(-1);
     equal(output,false,"Invalid Key");
+  });
+  
+ //test empty city
+    test('formatWeatherWithEmptyCity',function(){
+    var city=null;
+    var formattedCityWeather = formatWeather(city);
+    equal(formattedCityWeather,false,"No weather in empty city to be formatted");
+  });
+
+
+//test correct input
+   test('formatWeatherCorrectInput',function(){
+    var CityWeather = {"location": {
+                     "city": "San Francisco",}, 
+ 		     "current_observation":{ "temperature_string": "66.3 F (19.1 C)","weather":"Overcast"}}
+    var formattedCityWeather = formatWeather(CityWeather);
+    var result= "<p>Current weather in San Francisco is Overcast<br>The current temperature is 66.3 F (19.1 C)<br>For more information, visit <a href=\"undefined\" target=\"_blank\">San Francisco weather</a></p>"
+    equal(formattedCityWeather,result,"correct weather in city");
+  });
+
+
+   test('formatWeatherInput',function(){
+    var CityWeather = {"location": {
+                     "city": "Urbana",}, 
+ 		     "current_observation":{ "temperature_string": "66.3 F (19.1 C)","weather":"Overcast"}}
+    var formattedCityWeather = formatWeather(CityWeather);
+    var result= "<p>Current weather in Urbana is Overcast<br>The current temperature is 66.3 F (19.1 C)<br>For more information, visit <a href=\"undefined\" target=\"_blank\">Urbana weather</a></p>"
+    equal(formattedCityWeather,result,"correct weather in city");
+});
+
+test('formatWeatherIncorrectInput',function(){
+    var CityWeather = {"location": {
+                     "city": "",}, 
+                       "weather": "Partly Cloudy",
+ 		     "current_observation":{ "temperature_string": "66.3 F (19.1 C)"}}
+    var formattedCityWeather = formatWeather(CityWeather);
+    var result= "<p>Current weather in San Francisco is undefined<br>The current temperature is 66.3 F (19.1 C)<br>For more information, visit <a href=\"undefined\" target=\"_blank\">San Francisco weather</a></p>"
+    equal(formattedCityWeather,false,"Incorrect city ");
+  });
+  
+  
+  test('formatWeatherWithoutTemp',function(){
+    var CityWeather = {"location": {
+                     "city": "San Francisco",}, 
+ 		     "current_observation":{ }}
+    var formattedCityWeather = formatWeather(CityWeather);
+    var result= "<p>Current weather in San Francisco is undefined<br>The current temperature is undefined<br>For more information, visit <a href=\"undefined\" target=\"_blank\">San Francisco weather</a></p>"
+    equal(formattedCityWeather,result,"undefined temperature in a city");
   });
