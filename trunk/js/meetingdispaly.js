@@ -138,22 +138,31 @@ function shareItinerary(key,fbid){
 	return "SUCCESS";
 }
 
+
+function formatWeather(parsed_json){
+                 	if(parsed_json==null){
+                 		return false;   }         
+                 	console.log(parsed_json);
+                        var location = parsed_json['location']['city'];
+                        if (location==""){
+                          return false;
+                        }
+			var temperature = parsed_json['current_observation']['temperature_string'];
+			var weather = parsed_json['current_observation']['weather'];
+			var more_info = parsed_json['current_observation']['forecast_url'];
+			var content = "<p>Current weather in " + location + " is "+ weather +"<br>" +
+				      "The current temperature is " + temperature + "<br>" +
+				      "For more information, visit " + "<a href=\"" + more_info + "\" target=\"_blank\">"+location+" weather" +"</a></p>";
+        return content;
+}
 function getWeather(uniqueId, city, event){
 	$.ajax({
 		async: false,					
 		url : "http://api.wunderground.com/api/36d24347ff8d7151/geolookup/conditions/q/"+city+".json",
 		dataType : "jsonp",
 		success : function(parsed_json) {
-			var location = parsed_json['location']['city'];
-			var temperature = parsed_json['current_observation']['temperature_string'];
-			var weather = parsed_json['current_observation']['weather'];
-
-			var more_info = parsed_json['current_observation']['forecast_url'];
-			var content = "<p>Current weather in " + location + " is "+ weather +"<br>" +
-				      "The current temperature is " + temperature + "<br>" +
-				      "For more information, visit " + "<a href=\"" + more_info + "\" target=\"_blank\">"+location+" weather" +"</a></p>";
-			console.log(content);
 			
+			var content= formatWeather(parsed_json);			
 			$("#"+uniqueId).html(content);
 			}
 	});

@@ -8,8 +8,8 @@ var friendList;
 window.onload = function() {
     this.fbAsyncInit = function() {
         FB.init({
-            appId: '212944075564919', //shuotian's appID
-            //appId:'359029350906887',    //josh's appID
+            //appId: '212944075564919', //shuotian's appID
+            appId:'359029350906887',    //josh's appID
             //appId:'227611927429067',    //josh's localhost appid
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
@@ -116,9 +116,6 @@ window.onload = function() {
 // Load the SDK asynchronously
 
 
-
-
-
 function addNewUsertoDb(id, name, email) {
     $.post("./php/addNewUsertoDb.php", {
         id: id,
@@ -128,6 +125,57 @@ function addNewUsertoDb(id, name, email) {
         $(".result").html(data);
     });
 
+}
+
+//This function enable user to post status on facebook
+function postToWall() {  
+    var description = document.getElementById("description").value;
+    var ret = postDetector();
+    if (ret==false)
+      return
+        FB.login(function(response)
+                 {
+                 if (response.authResponse)
+                 {
+                 
+                 // Post message to your wall
+                 
+                 var opts = {
+                 message : description,
+                 name : 'Post Title',
+                 description : 'post description',
+                 };
+                 
+                 FB.api('/me/feed', 'post', opts, function(response)
+                        {
+                        if (!response || response.error)
+                        {
+                        alert('Posting error occured');
+                        }
+                        else
+                        {
+                        alert('Your status has been posted');
+                        }
+                        });
+                 }
+                 else
+                 {
+                 alert('Not logged in');
+                 }
+                 }, { scope : 'publish_stream' });
+}
+
+//This function checks if the user input has red words or not
+
+function postDetector(){
+  var input = document.getElementById("description").value;
+  if        (input.indexOf("Fuck")>-1||input.indexOf("fuck")>-1||input.indexOf("shit")>-1||input.indexOf("devil")>-1||input.indexOf("dumb")>-1||input.indexOf("dope")>-1) {
+        alert('Red Word Detected!');
+        return false;
+  }
+  else{
+    return true;
+  }
 }
 
 function facebookFriends() {
@@ -146,6 +194,7 @@ function facebookFriends() {
     this.selectFriends = selectFriends;
     this.sendMessage = sendMessage;
     this.showFriendList = showFriendList;
+
 
     function FBAPIGetFBid() {
         FB.api('/me', {
