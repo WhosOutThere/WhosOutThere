@@ -137,20 +137,19 @@
                         <h4 class="modal-title" id="myModalLabel">Your Status</h4>
                     </div>
                     <div class="modal-body">
-                        </br>
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
                                 <label for="city" class="col-sm-2 control-label">Status Text</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="description" placeholder="Length not exceed 1000 characters">
+                                    <textarea type="text" class="form-control" id="description" placeholder="Limit 200 characters" rows="8" cols="50" maxlength="200"></textarea>
                                 </div>         
                             </div>
                         </form>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="postToWall()" data-dismiss="modal">Confirm to Share</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="postToWall()" data-dismiss="modal">Confirm to Share</button>
+                    </div>
                 </div>
             </div>
         </div>
