@@ -130,11 +130,11 @@ function addNewUsertoDb(id, name, email) {
 //This function enable user to post status on facebook
 function postToWall() {  
     var description = document.getElementById("description").value;
-
+    
     var ret = postDetector();
-
+    
     if (ret==false)
-      return
+        return
         FB.login(function(response)
                  {
                  if (response.authResponse)
@@ -150,14 +150,7 @@ function postToWall() {
                  
                  FB.api('/me/feed', 'post', opts, function(response)
                         {
-                        if (!response || response.error)
-                        {
-                        alert('Posting error occured');
-                        }
-                        else
-                        {
-                        alert('Your status has been posted');
-                        }
+                        alertHelper(response);
                         });
                  }
                  else
@@ -167,6 +160,18 @@ function postToWall() {
                  }, { scope : 'publish_stream' });
 }
 
+//This function checks if the user input has red words or not
+function alertHelper(response){
+	if (!response || response.error)
+    {
+        alert('Posting error occured');
+    }
+    else
+    {
+        alert('Your status has been posted');
+    }
+    
+}
 //This function checks if the user input has red words or not
 
 
