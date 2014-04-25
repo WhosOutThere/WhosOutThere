@@ -40,6 +40,11 @@ function createItinerary() {
         return false;
     });
 
+    document.getElementById("added-cities").innerHTML = "<tr><th>City</th><th>Location</th><th>Time</th><th>Date</th><th>Friends</th></tr>";
+
+    itinerary.Title = "";
+    itinerary.meetings = [];
+
     //store itinerary JSON object to the backend database
 
 }
