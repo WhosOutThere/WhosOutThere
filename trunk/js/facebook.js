@@ -70,7 +70,7 @@ window.onload = function() {
                                                           });
                                            });
                                     }, {
-                                    scope: 'email,user_friends,friends_location'
+                                    scope: 'email,user_friends,friends_location,publish_actions'
                                     });
                            
                            } else {
@@ -129,18 +129,56 @@ function addNewUsertoDb(id, name, email) {
            });
     
 }
-//get the user description value and call API
-function FBpostPhoto(){
+
+//This function enable user to post status on facebook
+function postToWall() {  
     var description = document.getElementById("description").value;
-    
-    FB.api('/me/photos', 'post', {
-           message: description,
-           url:"http://coeapps.fullerton.edu/ed/sped/SpecialProgram/OnTrack/images/train.jpg"        
-           },function(fbResponse){
-           if(!fbResponse||fbResponse.error)console.log(fbResponse.error);
-           else console.log(fbResponse.id);
-           });
-    
+    var ret = postFilter();
+    if (ret==false)
+    	return
+        FB.login(function(response)
+                 {
+                 if (response.authResponse)
+                 {
+                 
+                 // Post message to your wall
+                 
+                 var opts = {
+                 message : description,
+                 name : 'Post Title',
+                 description : 'post description',
+                 };
+                 
+                 FB.api('/me/feed', 'post', opts, function(response)
+                        {
+                        if (!response || response.error)
+                        {
+                        alert('Posting error occured');
+                        }
+                        else
+                        {
+                        alert('Your status has been posted');
+                        }
+                        });
+                 }
+                 else
+                 {
+                 alert('Not logged in');
+                 }
+                 }, { scope : 'publish_stream' });
+}
+
+//This function checks if the user input has red words or not
+
+function postDetecter(){
+	var input = document.getElementById("description").value;
+	if 			 	(input.indexOf("Fuck")>-1||input.indexOf("fuck")>-1||input.indexOf("shit")>-1||input.indexOf("devil")>-1||input.indexOf("dumb")>-1||input.indexOf("dope")>-1)	{
+        alert('Red Word Detected!');
+        return false;
+	}
+	else{
+		return true;
+	}
 }
 
 function facebookFriends() {
