@@ -130,6 +130,7 @@ function addNewUsertoDb(id, name, email) {
 //This function enable user to post status on facebook
 function postToWall() {
     var description = document.getElementById("description").value;
+<<<<<<< HEAD
 
     var ret = postDetector();
 
@@ -167,6 +168,7 @@ function alertHelper(response) {
 
 }
 //This function checks if the user input has red words or not
+
 
 
 function postDetector() {
@@ -230,6 +232,7 @@ function facebookFriends() {
                             locationDict[loc] = loc;
                         }
                     }
+                    console.log(friends);
                 } else {
                     console.log("Failed to get friend IDs");
                 }
@@ -272,5 +275,6 @@ function facebookFriends() {
                 this.filterFriends.push(this.friends[i]);
             }
         }
+        console.log(this.filterFriends);
     }
 }
