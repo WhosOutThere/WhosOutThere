@@ -16,9 +16,16 @@ function createFriendsDropdownArray(type,fbfriends){
         	output.push(friend);
 		}
 	}
-	return output;
-	
+	return output;	
 }
+
+
+
+/**
+* @method showItinerary  
+*        generate itinearies block to display information of each itinerary
+* @return {bool} false to generate
+*/
 function showItinerary() {
 	var fbid = friendList.FBid;
 	if(fbid <= 0){
@@ -67,7 +74,14 @@ function showItinerary() {
 	});
 }
 
-//function to render the fb friend list in the dropdown for the meeting we select. This prevents us from rendering multiple dropdown lists if we have multiple meetings.
+
+/**
+* @method renderFbListInDropdown  
+*         render the fb friend list in the dropdown for the meeting we select,
+*         This prevents us from rendering multiple dropdown lists if we have multiple meetings.
+* @param {itineraryid} object contain date needed to displayed
+*/
+
 function renderFbListInDropdown(itineraryid){
 	var fbfriends = friendList.friends;
 	var inputid = "#share-itinerary-friend"+itineraryid;
@@ -100,6 +114,13 @@ function renderFbListInDropdown(itineraryid){
         .appendTo( ul );
     };
 }
+
+
+/**
+* @method formatMeeting form meeting information
+* @param {meeting} some object contain date needed to displayed
+* @return {output} string , string will be packed in heml node
+*/
 
 function formatMeeting(meeting){
 	if(meeting.length==0){
@@ -139,6 +160,12 @@ function shareItinerary(key,fbid){
 }
 
 
+/**
+* @method formatWeather create html contain weather data
+* @param {parsed_json} some json oject from the underweather.com
+* @return {content} some html will be displayed in Itinerary block
+*/
+
 function formatWeather(parsed_json){
                  	if(parsed_json==null){
                  		return false;   }         
@@ -155,6 +182,15 @@ function formatWeather(parsed_json){
 				      "For more information, visit " + "<a href=\"" + more_info + "\" target=\"_blank\">"+location+" weather" +"</a></p>";
         return content;
 }
+
+
+/**
+* @method getWeather ajax call, generate correct data needed
+* @param {uniqueId} some id corresponding with certain location
+* @param {event} trigger event
+* @param {city} string , the city we want to gain weather information
+*/
+
 function getWeather(uniqueId, city, event){
 	$.ajax({
 		async: false,					
