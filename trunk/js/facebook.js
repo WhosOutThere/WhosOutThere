@@ -113,7 +113,6 @@ window.onload = function() {
     }(document));
 }
 
-// Load the SDK asynchronously
 
 
 function addNewUsertoDb(id, name, email) {
@@ -130,7 +129,6 @@ function addNewUsertoDb(id, name, email) {
 //This function enable user to post status on facebook
 function postToWall() {
     var description = document.getElementById("description").value;
-<<<<<<< HEAD
 
     var ret = postDetector();
 
@@ -181,14 +179,18 @@ function postDetector() {
     }
 }
 
+/** facebookFriends Class
+ *  Includes all functionality pertaining to Facebook API calls
+ *  and Facebook friends data.
+ */
 function facebookFriends() {
     // Data Elements
-    this.FBid = 0;
-    this.friends = new Array();
-    this.filterFriends = new Array();
-    this.locationDict = {};
-    this.selectFbId = 0;
-    this.numFriendsInCity = 0;
+    this.FBid = 0;                        // User's Facebook ID
+    this.friends = new Array();           // User's Facebook friends
+    this.filterFriends = new Array();     // List of filtered friends for a city
+    this.locationDict = {};               // Dictionary for location
+    this.selectFbId = 0;                  // Facebook ID for selected friend
+    this.numFriendsInCity = 0;            // Number of friends in a city
 
     // Class Methods
     this.FBAPIGetFBid = FBAPIGetFBid;
@@ -199,6 +201,11 @@ function facebookFriends() {
     this.showFriendList = showFriendList;
 
 
+    /**
+     * Get the User's Facebook ID
+     *
+     * Wrapper around the Facebook Graph API function to get the user's Facebook ID
+     */
     function FBAPIGetFBid() {
         FB.api('/me', {
             fields: 'id'
@@ -207,6 +214,15 @@ function facebookFriends() {
         });
     }
 
+    /**
+     * Find Facebook friends and their locations
+     *
+     * Uses Facebook Graph API to get a list of user's Facebook friends and their
+     * locations then save it into the friends and locationDict arrays
+     *
+     * @param friends Reference to the friends array for reference during Facebook API Callback
+     * @param locationDict Reference to the locationDict array for reference during Facebook API Callback
+     */
     function FBAPIFindFriends(friends, locationDict) {
         FB.api(
             "/me/friends", {
@@ -240,6 +256,11 @@ function facebookFriends() {
         );
     }
 
+    /**
+     * Logs the user out of Facebook
+     *
+     * Wrapper around the Facebook API logout function and reloads the page
+     */
     function FBAPILogout() {
         FB.logout(function(response) {
             if (response) {
@@ -248,6 +269,12 @@ function facebookFriends() {
         });
     }
 
+    /**
+     * Gets the selected friend in a particular city
+     *
+     * Gets the Facebook ID of the friend that the user has selected from the radio buttons for a city
+     * @return Facebook ID of the selected friend
+     */
     function selectFriends() {
         for (var i = 0; i < this.numFriendsInCity; i++) {
             var selected = document.getElementById("friend" + i).checked;
@@ -257,6 +284,13 @@ function facebookFriends() {
         }
     }
 
+    /**
+     * Send Facebook Message
+     *
+     * Sends a Facebook Message to a selected recepient witha a link to the app
+     * @param recepient The Facebook ID of the recepient
+     * @param url A link to the application
+     */
     function sendMessage(recepient, url) {
         FB.ui({
             method: 'send',
@@ -266,6 +300,12 @@ function facebookFriends() {
         //'http://web.engr.illinois.edu/~zhang369/wot//trunk/'
     }
 
+    /**
+     * Gets the friends who are living in a particular city
+     *
+     * Finds all the friends living in a paricular city and push them into the filterFriends array
+     * @param address The address of the city that the user entered
+     */
     function showFriendList(address) {
         var location;
         this.filterFriends = [];
