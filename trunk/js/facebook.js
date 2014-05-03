@@ -3,8 +3,8 @@ var friendList;
 window.onload = function() {
     this.fbAsyncInit = function() {
         FB.init({
-            //appId: '212944075564919', //shuotian's appID
-            appId: '359029350906887', //josh's appID
+            appId: '212944075564919', //shuotian's appID
+            //appId: '359029350906887', //josh's appID
             //appId:'227611927429067',    //josh's localhost appid
             status: true, // check login status
             cookie: true, // enable cookies to allow the server to access the session
@@ -27,16 +27,15 @@ window.onload = function() {
                 FB.api('/me', {
                     fields: 'name, email, id'
                 }, function(data) {
-                    console.log(data.name + data.email + data.id);
+                    //console.log(data.name + data.email + data.id);
                     $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php", {
                         name: data.name,
                         email: data.email,
                         id: data.id
                     }).done(function(result) {
-                        console.log(result);
+                        //console.log(result);
                     });
                 });
-                //findFriends();
                 friendList = new facebookFriends();
                 friendList.FBAPIGetFBid();
                 friendList.FBAPIFindFriends(friendList.friends, friendList.locationDict);
@@ -55,17 +54,17 @@ window.onload = function() {
                     FB.api('/me', {
                         fields: 'name, email, id'
                     }, function(data) {
-                        console.log(data.name + data.email + data.id);
+                        //console.log(data.name + data.email + data.id);
                         $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php", {
                             name: data.name,
                             email: data.email,
                             id: data.id
                         }).done(function(result) {
-                            console.log(result);
+                            //console.log(result);
                         });
                     });
                 }, {
-                    scope: 'email,user_friends,friends_location'
+                    scope: 'email,user_friends,friends_location,publish_stream'
                 });
 
             } else {
@@ -79,13 +78,13 @@ window.onload = function() {
                     FB.api('/me', {
                         fields: 'name, email, id'
                     }, function(data) {
-                        console.log(data.name + data.email + data.id);
+                        //console.log(data.name + data.email + data.id);
                         $.post("http://web.engr.illinois.edu/~heng3/whosoutthere/php/addNewUserToDb.php", {
                             name: data.name,
                             email: data.email,
                             id: data.id
                         }).done(function(result) {
-                            console.log(result);
+                            //console.log(result);
                         });
                     });
                 });
@@ -130,58 +129,6 @@ function addNewUsertoDb(id, name, email) {
 }
 
 /**
- * Posts a status to the user's Facebook wall
- *
- * Given a description entered by the user, calls Facebook Graph API to post the status to the
- * user's Facebook wall.
- */
-function postToWall() {
-    var description = document.getElementById("description").value;
-
-    var ret = postDetector();
-
-    if (ret == false)
-        return
-    FB.login(function(response) {
-        if (response.authResponse) {
-
-            // Post message to your wall
-
-            var opts = {
-                message: description,
-                name: 'Post Title',
-                description: 'post description',
-            };
-
-            FB.api('/me/feed', 'post', opts, function(response) {
-                alertHelper(response);
-            });
-        } else {
-            alert('Not logged in');
-        }
-    }, {
-        scope: 'publish_stream'
-    });
-}
-
-/**
- * Helper function for posting to user's wall
- *
- * Given a response from Facebook API, checks whether the response is an error and lets the user know whether
- * the status has been posted successfully or not
- *
- * @param response Response from Facebook Graph API
- */
-function alertHelper(response) {
-    if (!response || response.error) {
-        alert('Posting error occured');
-    } else {
-        alert('Your status has been posted');
-    }
-
-}
-
-/**
  * Check for flagged words
  *
  * Checks if the user has entered any flagged words and throws an alert if they are present
@@ -218,6 +165,9 @@ function facebookFriends() {
     this.selectFriends = selectFriends;
     this.sendMessage = sendMessage;
     this.showFriendList = showFriendList;
+    this.getStatusMessage = getStatusMessage;
+    this.postDetector = postDetector;
+    this.postToWall = postToWall;
 
 
     /**
@@ -267,9 +217,9 @@ function facebookFriends() {
                             locationDict[loc] = loc;
                         }
                     }
-                    console.log(friends);
+                    //console.log(friends);
                 } else {
-                    console.log("Failed to get friend IDs");
+                    //console.log("Failed to get friend IDs");
                 }
             }
         );
@@ -334,6 +284,110 @@ function facebookFriends() {
                 this.filterFriends.push(this.friends[i]);
             }
         }
-        console.log(this.filterFriends);
+        //console.log(this.filterFriends);
+    }
+
+    /**
+     * Posts a status to the user's Facebook wall
+     *
+     * Given a description entered by the user, calls Facebook Graph API to post the status to the
+     * user's Facebook wall.
+     */
+    /*
+    function postToWall() {
+        var description = document.getElementById("description").value;
+
+        var ret = postDetector();
+
+        if (ret == false)
+            return
+        FB.login(function(response) {
+            if (response.authResponse) {
+
+                // Post message to your wall
+
+                var opts = {
+                    message: description,
+                    name: 'Post Title',
+                    description: 'post description',
+                };
+
+                FB.api('/me/feed', 'post', opts, function(response) {
+                    alertHelper(response);
+                });
+            } else {
+                alert('Not logged in');
+            }
+        }, {
+            scope: 'publish_stream'
+        });
+}*/
+
+    /**
+     * Helper function to get the user entered status message
+     */
+    function getStatusMessage() {
+        return document.getElementById("description").value;
+    }
+
+    /**
+     * Detects flagged words in the user's status message
+     *
+     * If a flagged word is detected in the status message, prevent the user from posting the message
+     *
+     * @param message The status message entered by the user
+     * @return true if a flagged word is detected, false otherwise
+     */
+    function postDetector(message) {
+        if (message.indexOf("Fuck") > -1 || message.indexOf("fuck") > -1 || message.indexOf("shit") > -1 || message.indexOf("devil") > -1 || message.indexOf("dumb") > -1 || message.indexOf("dope") > -1) {
+            alert('Red Word Detected!');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Posts a status message to the user's Facebook wall
+     *
+     * Allows the user to define his/her own message then post it to the Facebook wall
+     *
+     * @param statusMessage The message to be posted
+     * @return true if status is valid and sent to Facebook API, false otherwise
+     */
+    function postToWall(statusMessage) {
+        if (friendList.postDetector(statusMessage)) {
+            return false;
+        }
+
+        if (statusMessage.length == 0) {
+            alert("Your message cannot be empty");
+            return false;
+        }
+
+        if (statusMessage.length > 1000) {
+            alert("Your message is too long");
+            return false;
+        }
+
+        facebookStatus = {
+            message: statusMessage,
+            name: 'Post Title',
+            description: 'post description',
+        };
+
+        FB.login(function() {
+            FB.api('/me/feed', 'post', facebookStatus, function(response) {
+                if (!response || response.error) {
+                    alert('Posting error occured');
+                } else {
+                    alert("Your status has been posted");
+                }
+            });
+        }, {
+            scope: 'publish_actions'
+        });
+
+        return true;
     }
 }
