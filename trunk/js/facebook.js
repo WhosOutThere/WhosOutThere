@@ -1,8 +1,3 @@
-/*
-var globalFriends = new Array();
-var locationDict = {};
-var selectFbId;*/
-
 var friendList;
 
 window.onload = function() {
@@ -114,7 +109,15 @@ window.onload = function() {
 }
 
 
-
+/*
+ * Adds a new user to the database
+ *
+ * Uses JQuery to call the php script that adds a new user to the database
+ *
+ * @param id Facebook ID of the new user
+ * @param name Name of the new user
+ * @param email Email of the new user
+ */
 function addNewUsertoDb(id, name, email) {
     $.post("./php/addNewUsertoDb.php", {
         id: id,
@@ -126,7 +129,12 @@ function addNewUsertoDb(id, name, email) {
 
 }
 
-//This function enable user to post status on facebook
+/**
+ * Posts a status to the user's Facebook wall
+ *
+ * Given a description entered by the user, calls Facebook Graph API to post the status to the
+ * user's Facebook wall.
+ */
 function postToWall() {
     var description = document.getElementById("description").value;
 
@@ -156,7 +164,14 @@ function postToWall() {
     });
 }
 
-//This function checks if the user input has red words or not
+/**
+ * Helper function for posting to user's wall
+ *
+ * Given a response from Facebook API, checks whether the response is an error and lets the user know whether
+ * the status has been posted successfully or not
+ *
+ * @param response Response from Facebook Graph API
+ */
 function alertHelper(response) {
     if (!response || response.error) {
         alert('Posting error occured');
@@ -165,10 +180,13 @@ function alertHelper(response) {
     }
 
 }
-//This function checks if the user input has red words or not
 
-
-
+/**
+ * Check for flagged words
+ *
+ * Checks if the user has entered any flagged words and throws an alert if they are present
+ * @return false if flagged word detected, true otherwise
+ */
 function postDetector() {
     var input = document.getElementById("description").value;
     if (input.indexOf("Fuck") > -1 || input.indexOf("fuck") > -1 || input.indexOf("shit") > -1 || input.indexOf("devil") > -1 || input.indexOf("dumb") > -1 || input.indexOf("dope") > -1) {
@@ -179,18 +197,19 @@ function postDetector() {
     }
 }
 
-/** facebookFriends Class
- *  Includes all functionality pertaining to Facebook API calls
- *  and Facebook friends data.
+/** 
+ * facebookFriends Class
+ * Includes all functionality pertaining to Facebook API calls
+ * and Facebook friends data.
  */
 function facebookFriends() {
     // Data Elements
-    this.FBid = 0;                        // User's Facebook ID
-    this.friends = new Array();           // User's Facebook friends
-    this.filterFriends = new Array();     // List of filtered friends for a city
-    this.locationDict = {};               // Dictionary for location
-    this.selectFbId = 0;                  // Facebook ID for selected friend
-    this.numFriendsInCity = 0;            // Number of friends in a city
+    this.FBid = 0; // User's Facebook ID
+    this.friends = new Array(); // User's Facebook friends
+    this.filterFriends = new Array(); // List of filtered friends for a city
+    this.locationDict = {}; // Dictionary for location
+    this.selectFbId = 0; // Facebook ID for selected friend
+    this.numFriendsInCity = 0; // Number of friends in a city
 
     // Class Methods
     this.FBAPIGetFBid = FBAPIGetFBid;
