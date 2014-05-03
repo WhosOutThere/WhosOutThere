@@ -1,14 +1,15 @@
 initialize();
   document.getElementById("query").value = "Champaign";
   var event, $submitButton = $( "#submit" );
- // trigger event
   var latlng;
   event = $.Event( "click");
   event.keyCode = 9;
   var test;
   var friendList = new facebookFriends();
 
- //Test finding valid address works 
+/**
+*   testing invalid address
+**/
   showAddress(event,function(loc){
     var param = loc;
     console.log(param);
@@ -27,7 +28,9 @@ initialize();
   });
 
   
-//Test filtering friends from a list; Test finding a city with a friend in it.
+/**
+* testing filtering friends from a list; Test finding a city with a friend in it
+**/
   test('showFriendList',function(){
     var friend = {
     'name':"John Doe",
@@ -51,9 +54,10 @@ initialize();
   });
   
   
- //test formatting the strings for sharing itinerary
+ /**
+ *  testing empty strings as meeting 
+ */
   test('formatMeetingWithEmptyMeeting',function(){
-    //test empty meeting
     var meeting = [];
     var formattedMeeting = formatMeeting(meeting);
     equal(formattedMeeting,false,"No meetings to be formatted");
@@ -61,7 +65,9 @@ initialize();
 
 
 
-//test formatting the strings for sharing itinerary
+/**
+*   testing formatting the strings for sharing itinerary
+**/
   test('formatProperMeeting',function(){    
     var meeting = ["Test Itinerary",[
         {
@@ -77,9 +83,10 @@ initialize();
   });
 
 
-//test formatting the strings for sharing itinerary
+/**
+*   testing meeting with missing fields
+**/
   test('formatMeetingWithIncompleteMeeting',function(){
-    //test meeting with missing fields
     var meeting = ["Test Itinerary",[
         {
           'city':'Chicago',
@@ -93,31 +100,37 @@ initialize();
   });
 
 
-//test shareItinerary function
+/**
+*   testing meeting with missing friend's facebook id
+**/
   test('shareItineraryWithoutFbId',function(){
-    //test meeting with missing fields
     var output = shareItinerary(21);
     equal(output,false,"Missing friend's fbid");
   });
 
 
-//test shareItinerary function
+/**
+*   testing meeting with invalid key
+**/  
   test('shareItineraryWithInvalidKey',function(){
-    //test meeting with missing fields
     var output = shareItinerary(-1);
     equal(output,false,"Invalid Key");
   });
   
   
- //test empty city input
+/**
+*   testing weather information in a invalid city
+**/    
     test('formatWeatherWithEmptyCity',function(){
-    var city=null;
-    var formattedCityWeather = formatWeather(city);
-    equal(formattedCityWeather,false,"No weather in empty city to be formatted");
+      var city=null;
+      var formattedCityWeather = formatWeather(city);
+     equal(formattedCityWeather,false,"No weather in empty city to be formatted");
   });
 
 
-//test correct input
+/**
+*   testing weather information with correct input string
+**/ 
    test('formatWeatherCorrectInput',function(){
     var CityWeather = {"location": {
                      "city": "San Francisco",}, 
@@ -128,7 +141,9 @@ initialize();
   });
 
 
-//test correct input
+/**
+*   testing weather information with correct input string
+**/ 
    test('formatWeatherInput',function(){
     var CityWeather = {"location": {
                      "city": "Urbana",}, 
@@ -139,8 +154,10 @@ initialize();
 });
 
 
-//test without city information
-test('formatWeatherIncorrectInput',function(){
+/**
+*   testing weather information with missing city string
+**/ 
+  test('formatWeatherIncorrectInput',function(){
     var CityWeather = {"location": {
                      "city": "",}, 
                        "weather": "Partly Cloudy",
@@ -151,8 +168,10 @@ test('formatWeatherIncorrectInput',function(){
   });
 
   
-//test city without temperature information
-  test('formatWeatherWithoutTemp',function(){
+/**
+*   testing weather information with missing temperature string
+**/ 
+   test('formatWeatherWithoutTemp',function(){
     var CityWeather = {"location": {
                      "city": "San Francisco",}, 
  		     "current_observation":{ }}
