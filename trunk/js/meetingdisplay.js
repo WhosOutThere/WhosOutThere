@@ -1,6 +1,9 @@
 var globalmeetings = {};
 
-//refactored function. Was duplicated in meetingdisplay.js and itinerary.js
+/**
+*create dropdown list for corresponding friends with first few letter entried  
+*@return {output} array contains all the friends 
+**/
 function createFriendsDropdownArray(type,fbfriends){
 	var output = [];
 	for(var i = 0; i < fbfriends.length; i++){
@@ -22,8 +25,7 @@ function createFriendsDropdownArray(type,fbfriends){
 
 
 /**
-* @method showItinerary  
-*        generate itinearies block to display information of each itinerary
+* generate itinearies block to display information of each itinerary
 * @return {bool} false to generate
 */
 function showItinerary() {
@@ -34,9 +36,7 @@ function showItinerary() {
 	$.get("http://web.engr.illinois.edu/~heng3/whosoutthere/php/getItinerary.php", {
 		id: fbid
 	}).done(function(data) {
-		console.log(data);
 		var result = $.parseJSON(data);
-		console.log(result);
 		globalmeetings=result;
 		document.getElementById("Itinerary").innerHTML = "";
 		if (result.length==0){
@@ -76,17 +76,14 @@ function showItinerary() {
 
 
 /**
-* @method renderFbListInDropdown  
-*         render the fb friend list in the dropdown for the meeting we select,
-*         This prevents us from rendering multiple dropdown lists if we have multiple meetings.
+* render the fb friend list in the dropdown for the meeting we select,
+* this prevents us from rendering multiple dropdown lists if we have multiple meetings.
 * @param {itineraryid} object contain date needed to displayed
 */
 
 function renderFbListInDropdown(itineraryid){
 	var fbfriends = friendList.friends;
 	var inputid = "#share-itinerary-friend"+itineraryid;
-	console.log(inputid);
-	console.log(fbfriends);
 	var friends = createFriendsDropdownArray("SINGLE",fbfriends);
 	
     $( "#share-itinerary-friend"+itineraryid ).autocomplete({
@@ -98,7 +95,6 @@ function renderFbListInDropdown(itineraryid){
       },
       select: function( event, ui ) {
         $( "#share-itinerary-friend"+itineraryid ).val( ui.item.label );
-        console.log(ui.item.value );
  		for(key in globalmeetings){
  			if(key==parseInt(itineraryid)){
  				$("#shareitbtn"+key).attr('onclick',"shareItinerary("+key+","+ui.item.value+")");
@@ -117,9 +113,9 @@ function renderFbListInDropdown(itineraryid){
 
 
 /**
-* @method formatMeeting form meeting information
-* @param {meeting} some object contain date needed to displayed
-* @return {output} string , string will be packed in heml node
+* form meeting information
+* @param {meeting} some object contain date needed to be displayed
+* @return {output} string , string will be packed in html node
 */
 
 function formatMeeting(meeting){
@@ -142,34 +138,37 @@ function formatMeeting(meeting){
 	return output;
 }
 
+
+/**
+*  share a itineray with in Facebook
+*  @param {key} some object contain date needed to be displayed
+*  @param {fbid} user's facebook id
+*  @return {bool} if not success, reuturn false
+**/
+
 function shareItinerary(key,fbid){
 	if(fbid == null){
-		console.log("No Fbid");
-		return false;
+			return false;
 	}
 	if(key < 0){
 		return false;
 	}
 	var sharecontent = formatMeeting(globalmeetings[key]);
-	console.log(sharecontent);
-	console.log(fbid);
 	var url = "http://web.engr.illinois.edu/~heng3/whosoutthere/shareditinerary.html?itineraryid="+key+"&fid="+friendList.FBid;
 	friendList.sendMessage(fbid,url);
-	console.log("SUCCESS");
 	return "SUCCESS";
 }
 
 
 /**
-* @method formatWeather create html contain weather data
-* @param {parsed_json} some json oject from the underweather.com
-* @return {content} some html will be displayed in Itinerary block
+*  formatWeather create html contain weather data
+*  @param {parsed_json} some json oject from the underweather.com
+*  @return {content} some html will be displayed in Itinerary block
 */
 
 function formatWeather(parsed_json){
                  	if(parsed_json==null){
                  		return false;   }         
-                 	console.log(parsed_json);
                         var location = parsed_json['location']['city'];
                         if (location==""){
                           return false;
@@ -185,10 +184,10 @@ function formatWeather(parsed_json){
 
 
 /**
-* @method getWeather ajax call, generate correct data needed
-* @param {uniqueId} some id corresponding with certain location
-* @param {event} trigger event
-* @param {city} string , the city we want to gain weather information
+*  getWeather ajax call, generate correct data needed
+*  @param {uniqueId} some id corresponding with certain location
+*  @param {event} trigger event
+*  @param {city} string , the city we want to gain weather information
 */
 
 function getWeather(uniqueId, city, event){
@@ -196,8 +195,7 @@ function getWeather(uniqueId, city, event){
 		async: false,					
 		url : "http://api.wunderground.com/api/36d24347ff8d7151/geolookup/conditions/q/"+city+".json",
 		dataType : "jsonp",
-		success : function(parsed_json) {
-			
+		success : function(parsed_json) {		
 			var content= formatWeather(parsed_json);			
 			$("#"+uniqueId).html(content);
 			}
