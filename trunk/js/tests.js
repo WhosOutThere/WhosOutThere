@@ -1,15 +1,14 @@
 initialize();
   document.getElementById("query").value = "Champaign";
   var event, $submitButton = $( "#submit" );
-  // trigger event
+ // trigger event
   var latlng;
   event = $.Event( "click");
   event.keyCode = 9;
   var test;
   var friendList = new facebookFriends();
 
-  //Test finding valid address works
-  
+ //Test finding valid address works 
   showAddress(event,function(loc){
     var param = loc;
     console.log(param);
@@ -20,8 +19,6 @@ initialize();
   });
 
   document.getElementById("query").value = "irhioewhfiosdf";
-
-  //Test finding invalid address doesn't work
   showAddress(event,function(loc){
     var param = loc;
     test('showAddress',function(){
@@ -30,7 +27,7 @@ initialize();
   });
 
   
-  //Test filtering friends from a list.
+//Test filtering friends from a list; Test finding a city with a friend in it.
   test('showFriendList',function(){
     var friend = {
     'name':"John Doe",
@@ -44,7 +41,6 @@ initialize();
   }
   friendList.friends.push(friend);
   friendList.friends.push(friend2);
-    //Test finding a city with a friend in it.
     friendList.showFriendList("Urbana");
     var filteredFriend = friendList.filterFriends;
     equal(filteredFriend[0].location,"Urbana, IL","Test filterFriend");
@@ -53,8 +49,9 @@ initialize();
     filteredFriend = friendList.filterFriends;
     equal(filteredFriend.length,0,"No friends found");   
   });
-
-  //test formatting the strings for sharing itinerary
+  
+  
+ //test formatting the strings for sharing itinerary
   test('formatMeetingWithEmptyMeeting',function(){
     //test empty meeting
     var meeting = [];
@@ -64,13 +61,8 @@ initialize();
 
 
 
- 
-	
-
-  //test formatting the strings for sharing itinerary
-  test('formatProperMeeting',function(){
-    //test proper meeting
-    
+//test formatting the strings for sharing itinerary
+  test('formatProperMeeting',function(){    
     var meeting = ["Test Itinerary",[
         {
           'city':'Chicago',
@@ -84,7 +76,8 @@ initialize();
     equal(formattedMeeting,expectedoutput,"Meetings to be formatted");
   });
 
-  //test formatting the strings for sharing itinerary
+
+//test formatting the strings for sharing itinerary
   test('formatMeetingWithIncompleteMeeting',function(){
     //test meeting with missing fields
     var meeting = ["Test Itinerary",[
@@ -99,21 +92,24 @@ initialize();
     equal(formattedMeeting,false,"Meeting is missing a field");
   });
 
-  //test shareItinerary function
+
+//test shareItinerary function
   test('shareItineraryWithoutFbId',function(){
     //test meeting with missing fields
     var output = shareItinerary(21);
     equal(output,false,"Missing friend's fbid");
   });
 
-  //test shareItinerary function
+
+//test shareItinerary function
   test('shareItineraryWithInvalidKey',function(){
     //test meeting with missing fields
     var output = shareItinerary(-1);
     equal(output,false,"Invalid Key");
   });
   
- //test empty city
+  
+ //test empty city input
     test('formatWeatherWithEmptyCity',function(){
     var city=null;
     var formattedCityWeather = formatWeather(city);
@@ -132,6 +128,7 @@ initialize();
   });
 
 
+//test correct input
    test('formatWeatherInput',function(){
     var CityWeather = {"location": {
                      "city": "Urbana",}, 
@@ -141,6 +138,8 @@ initialize();
     equal(formattedCityWeather,result,"correct weather in city");
 });
 
+
+//test without city information
 test('formatWeatherIncorrectInput',function(){
     var CityWeather = {"location": {
                      "city": "",}, 
@@ -150,8 +149,9 @@ test('formatWeatherIncorrectInput',function(){
     var result= "<p>Current weather in San Francisco is undefined<br>The current temperature is 66.3 F (19.1 C)<br>For more information, visit <a href=\"undefined\" target=\"_blank\">San Francisco weather</a></p>"
     equal(formattedCityWeather,false,"Incorrect city ");
   });
+
   
-  
+//test city without temperature information
   test('formatWeatherWithoutTemp',function(){
     var CityWeather = {"location": {
                      "city": "San Francisco",}, 

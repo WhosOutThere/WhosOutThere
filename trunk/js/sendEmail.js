@@ -8,7 +8,11 @@ var m = new mandrill.Mandrill('bVkQiTTlVFArlVrFvK7tZQ');
 
 
 
-//the actual function to send email 
+
+/**
+ * the actual function to send email 
+ * @return {none}
+ */
 function sendTheMail() {
     // Send the email!
     //address stores the email string that user inputs
@@ -21,7 +25,7 @@ function sendTheMail() {
     var global_sendlist = parserHelper(address);
     
     
-    
+    //create the jason object
     var params = {
         "message": {
             "from_email":"userEmail@gmail.com",
@@ -32,7 +36,12 @@ function sendTheMail() {
     };
     m.messages.send(params);
 }
-//convert the user input address to json format 
+
+/**
+ * convert the user input address to json format
+ * @param {address} the email address that user input
+ * @return {temp} Array , array that contains the json object
+ */
 function parserHelper(address){
     
     

@@ -5,29 +5,6 @@ var itinerary = {
 };
 
 function createItinerary() {
-    /*
-    var itineraryTitle = document.getElementById("itinerary-title").value;
-    var cityName = document.getElementById("city-name").value;
-    var location = document.getElementById("location").value;
-    var time = document.getElementById("time").value;
-    var date = document.getElementById("date").value;
-    var friends = document.getElementById("friends").value;
-
-    //convert the itinerary input to an json object
-    var itineraryObj = {};
-    itineraryObj = {
-        "title": itineraryTitle,
-        "city-name": cityName,
-        "location": location,
-        "time": time,
-        "date": date,
-        "friends": friends
-    }
-
-
-    console.log("The itinerary JSON object is....");
-    console.log(itineraryObj);*/
-
     // Clear the itinerary fields
     clearItineraryFields(true);
 
@@ -39,6 +16,11 @@ function createItinerary() {
         console.log(data);
         return false;
     });
+
+    document.getElementById("added-cities").innerHTML = "<tr><th>City</th><th>Location</th><th>Time</th><th>Date</th><th>Friends</th></tr>";
+
+    itinerary.Title = "";
+    itinerary.meetings = [];
 
     //store itinerary JSON object to the backend database
 
@@ -116,49 +98,6 @@ function addCity() {
         return true;
 
     });
-
-    /*
-    // Test for incorrect time format eg. 123:123 etc. Regex looks for (two digits:two digits)
-    var correctTime = /^\d\d:\d\d$/.test(time);
-    //console.log(correctTime);
-
-    // Test for incorrect date format. Regex looks for mm/dd/yyyy. mm goes between 00 and 19, dd goes between 00 and 39, yyyy goes between 2000 and 2099.
-    var correctDate = /^[01][0-9]\/[0-3][0-9]\/[2][0][0-9][0-9]$/.test(date);
-    //console.log(correctDate);
-
-    // This will send a pop up alert and return false
-    if (!correctTime || !correctDate) {
-        window.alert("Invalid Time or Date!");
-        return false;
-    }
-
-    var curMeeting = {
-        "city": cityName,
-        "location": location,
-        "date": date,
-        "time": time,
-        "friends": friends
-    }
-
-    itinerary.Title = itineraryTitle;
-    itinerary.meetings.push(curMeeting);
-
-    //console.log(curMeeting);
-    //console.log(itinerary)
-
-    clearItineraryFields(false);
-
-    document.getElementById("added-cities").innerHTML +=
-        "<tr>" +
-        "<td>" + cityName + "</td>" +
-        "<td>" + location + "</td>" +
-        "<td>" + time + "</td>" +
-        "<td>" + date + "</td>" +
-        "<td>" + friends + "</td>" +
-        "</tr>";
-
-
-    return true;*/
 }
 
 function clearItineraryFields(clearTitle) {
@@ -177,11 +116,6 @@ $('#date').datepicker().data('datepicker');
 function activateFriendDropdown() {
     var fbfriends = friendList.friends;
     var availableTags = createFriendsDropdownArray("MULTIPLE", fbfriends);
-    /*for(var i = 0; i < fbfriends.length; i++){
-        var friend = fbfriends[i].name;
-        availableTags.push(friend);
-    }*/
-    //console.log(availableTags);
 
     function split(val) {
         return val.split(/,\s*/);

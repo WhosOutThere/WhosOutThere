@@ -8,6 +8,9 @@ var numFriendsInCity;
 var directionsDisplay;
 var directionsService;
 
+/**
+ * function that initialize the google map
+ */
 function initialize() {
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
@@ -15,19 +18,27 @@ function initialize() {
         zoom: 4
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-    //directionsDisplay.setMap(map);
-    //directionsDisplay.setPanel(document.getElementById('directions-panel'));
+    
 
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
+
+
+/**
+ * Function to display the directions from the user's current location to meeting location on our map.
+ * @param {end} the destination that user input
+ * @param {event} event to prevent auto refreshing page
+ * @return {none} 
+ */
 function firstRoute(end,event) {
-  
+  //set the direction panel to display text info
   event.preventDefault();
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById('directions-panel'));
+  //get the current location
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
     var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -37,6 +48,7 @@ function firstRoute(end,event) {
     travelMode: google.maps.TravelMode.DRIVING
   };
   console.log(request);
+  //get the google directions
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
@@ -52,29 +64,13 @@ function firstRoute(end,event) {
 }
 
 
+/**
+ * When the marker is clicked, a modal will pop up displaying all of the user's friends living in that city.
+ * @param {event} event to prevent auto refreshing page
+ * @param {fn} function(loc)
+ * @return {none} 
+ */
 function showAddress(event, fn) {
-    /*var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-      if (geocoder) {
-        geocoder.getLatLng(
-          address,
-          function(point) {
-            if (!point) {
-              alert(address + " not found");
-            } else {
-              map.setCenter(point, 15);
-              var marker = new GMarker(point, {draggable: true});
-              map.addOverlay(marker);
-              GEvent.addListener(marker, "dragend", function() {
-                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(3));
-              });
-              GEvent.addListener(marker, "click", function() {
-                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(3));
-              });
-	      GEvent.trigger(marker, "click");
-            }
-          }
-        );
-      }*/
     console.log(event);
     event.preventDefault();
 
@@ -103,13 +99,6 @@ function showAddress(event, fn) {
                     alert("You do not have any friends living here!");
                 } else {
 
-                    //Dynamically adds our filtered list of friends to the modal. It contains their name and Facebook id. We will expand on this some way to  do more interactions.
-                    /*
-              document.getElementById("filteredFriends").innerHTML="";
-              for(var i = 0; i < filterFriends.length;i++){
-                var friend = "<li class=\"list-group-item\">"+filterFriends[i].name+" - fbID: "+filterFriends[i].id+"</li>";
-                document.getElementById("filteredFriends").innerHTML+=friend;
-            }*/
 
                     document.getElementById("filteredFriends").innerHTML = "";
                     numFriendsInCity = 0;
@@ -120,9 +109,10 @@ function showAddress(event, fn) {
                         document.getElementById("filteredFriends").innerHTML += friend;
                         numFriendsInCity += 1;
                         friendList.numFriendsInCity += 1;
+                        console.log(friendList.filterFriends[i].name);
                     }
 
-
+                    document.getElementById("filteredFriends").innerHTML+="Friends should be shown here";
                     $('#myModal').modal('show');
                 }
             });
