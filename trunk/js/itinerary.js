@@ -4,6 +4,11 @@ var itinerary = {
     "meetings": []
 };
 
+
+/**
+ * @method createItineray
+ *      create
+ */
 function createItinerary() {
     // Clear the itinerary fields
     clearItineraryFields(true);
