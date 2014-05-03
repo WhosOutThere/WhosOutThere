@@ -288,42 +288,6 @@ function facebookFriends() {
     }
 
     /**
-     * Posts a status to the user's Facebook wall
-     *
-     * Given a description entered by the user, calls Facebook Graph API to post the status to the
-     * user's Facebook wall.
-     */
-    /*
-    function postToWall() {
-        var description = document.getElementById("description").value;
-
-        var ret = postDetector();
-
-        if (ret == false)
-            return
-        FB.login(function(response) {
-            if (response.authResponse) {
-
-                // Post message to your wall
-
-                var opts = {
-                    message: description,
-                    name: 'Post Title',
-                    description: 'post description',
-                };
-
-                FB.api('/me/feed', 'post', opts, function(response) {
-                    alertHelper(response);
-                });
-            } else {
-                alert('Not logged in');
-            }
-        }, {
-            scope: 'publish_stream'
-        });
-}*/
-
-    /**
      * Helper function to get the user entered status message
      */
     function getStatusMessage() {
