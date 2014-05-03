@@ -4,6 +4,11 @@ var itinerary = {
     "meetings": []
 };
 
+/**
+ * Creates a new itinerary
+ *
+ * Sends a new itinerary to the database after the user has added all the cities
+ */
 function createItinerary() {
     // Clear the itinerary fields
     clearItineraryFields(true);
@@ -26,6 +31,11 @@ function createItinerary() {
 
 }
 
+/**
+ * Adds a new city
+ *
+ * Adds a new city to the temporary JSON object as part of an itinerary
+ */
 function addCity() {
     var itineraryTitle = document.getElementById("itinerary-title").value;
     var cityName = document.getElementById("city-name").value;
@@ -57,11 +67,9 @@ function addCity() {
         }
         // Test for incorrect time format eg. 123:123 etc. Regex looks for (two digits:two digits)
         var correctTime = /^\d\d:\d\d$/.test(time);
-        //console.log(correctTime);
 
         // Test for incorrect date format. Regex looks for mm/dd/yyyy. mm goes between 00 and 19, dd goes between 00 and 39, yyyy goes between 2000 and 2099.
         var correctDate = /^[01][0-9]\/[0-3][0-9]\/[2][0][0-9][0-9]$/.test(date);
-        //console.log(correctDate);
 
         // This will send a pop up alert and return false
         if (!correctTime || !correctDate) {
@@ -80,9 +88,6 @@ function addCity() {
         itinerary.Title = itineraryTitle;
         itinerary.meetings.push(curMeeting);
 
-        //console.log(curMeeting);
-        //console.log(itinerary)
-
         clearItineraryFields(false);
 
         document.getElementById("added-cities").innerHTML +=
@@ -100,6 +105,9 @@ function addCity() {
     });
 }
 
+/**
+ * Clear itinerary fields in index.html
+ */
 function clearItineraryFields(clearTitle) {
     if (clearTitle) {
         document.getElementById("itinerary-title").value = "";
@@ -112,6 +120,7 @@ function clearItineraryFields(clearTitle) {
 }
 
 $('#date').datepicker().data('datepicker');
+
 
 function activateFriendDropdown() {
     var fbfriends = friendList.friends;
