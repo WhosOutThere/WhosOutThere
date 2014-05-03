@@ -21,6 +21,7 @@ function initialize() {
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
+//Function to display the directions from the user's current location to meeting location on our map.
 function firstRoute(end,event) {
   
   event.preventDefault();
@@ -51,30 +52,9 @@ function firstRoute(end,event) {
   
 }
 
-
+//Function to plot a marker on the location a user is searching. The marker is initialized with all of the user's friends living in that city.
+//When the marker is clicked, a modal will pop up displaying all of the user's friends living in that city.
 function showAddress(event, fn) {
-    /*var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-      if (geocoder) {
-        geocoder.getLatLng(
-          address,
-          function(point) {
-            if (!point) {
-              alert(address + " not found");
-            } else {
-              map.setCenter(point, 15);
-              var marker = new GMarker(point, {draggable: true});
-              map.addOverlay(marker);
-              GEvent.addListener(marker, "dragend", function() {
-                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(3));
-              });
-              GEvent.addListener(marker, "click", function() {
-                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(3));
-              });
-	      GEvent.trigger(marker, "click");
-            }
-          }
-        );
-      }*/
     console.log(event);
     event.preventDefault();
 
@@ -103,13 +83,6 @@ function showAddress(event, fn) {
                     alert("You do not have any friends living here!");
                 } else {
 
-                    //Dynamically adds our filtered list of friends to the modal. It contains their name and Facebook id. We will expand on this some way to  do more interactions.
-                    /*
-              document.getElementById("filteredFriends").innerHTML="";
-              for(var i = 0; i < filterFriends.length;i++){
-                var friend = "<li class=\"list-group-item\">"+filterFriends[i].name+" - fbID: "+filterFriends[i].id+"</li>";
-                document.getElementById("filteredFriends").innerHTML+=friend;
-            }*/
 
                     document.getElementById("filteredFriends").innerHTML = "";
                     numFriendsInCity = 0;

@@ -1,4 +1,11 @@
 <?php
+/*
+ * Function to add user's name and facebook id to MYSQL database
+ * @param $name: Name of the user
+ * @param $id: Facebook id of the user
+ * @param $email: Email of the user
+ * @param $con: connection to our MYSQL DB
+ */
 function addNewUser($name, $id, $email,$con){
 
 	if(empty($name)||empty($id)||empty($email)){
@@ -21,6 +28,11 @@ function addNewUser($name, $id, $email,$con){
 
 }
 
+/*
+ * Function to add new itinerary MYSQL database
+ * @param $param: JSON object of an itinerary
+ * @param $con: connection to our MYSQL DB
+ */
 function addItinerary($param, $con){
 	if(empty($param)){
 		return -1;
@@ -56,6 +68,11 @@ function addItinerary($param, $con){
 	}
 }
 
+/*
+ * Function to get all itineraries in MYSQL database with $user_id as key
+ * @param $user_id: Facebook id of the user
+ * @param $con: connection to our MYSQL DB
+ */
 function getItinerary($user_id, $con){
 	if(empty($user_id)){
 		return -1;
@@ -77,6 +94,11 @@ function getItinerary($user_id, $con){
 	echo json_encode($output);
 }
 
+/*
+ * Function to create a meeting object
+ * @param $row: An array of details for a single meeting
+ * @return $object: JSON object of a meeting
+ */
 function createMeeting($row){
 	$object = new stdClass();
 	$object->location = $row['location'];

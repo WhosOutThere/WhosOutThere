@@ -1,3 +1,6 @@
+/*This script is used when a user is sharing his itinerary with another user. The friend will receive a url with the itinerary id.
+ *The itinerary id is extracted out from the url and does an ajax call which retrieves all of the meetings in this particular itinerary.
+ */
 $( document ).ready(function() {
   var params = location.search;
   params = params.substr(1);
