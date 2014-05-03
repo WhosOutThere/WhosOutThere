@@ -23,8 +23,6 @@ function initialize() {
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
 /**
  * Function to display the directions from the user's current location to meeting location on our map.
  * @param {end} the destination that user input
@@ -62,7 +60,6 @@ function firstRoute(end,event) {
   
   
 }
-
 
 /**
  * When the marker is clicked, a modal will pop up displaying all of the user's friends living in that city.
