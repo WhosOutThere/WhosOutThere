@@ -1,13 +1,13 @@
+// the global itinerary object
 var itinerary = {
     "Title": "",
     "FBid": 0,
     "meetings": []
 };
 
-
 /**
- * @method createItineray
- *      create
+ *  @method createItineray
+ *      create a new Itinerary and store it in mySQL database.
  */
 function createItinerary() {
     // Clear the itinerary fields
@@ -31,6 +31,11 @@ function createItinerary() {
 
 }
 
+/**
+ *  @method addCity
+ *      get the city and meeting information from the user, then diplay in the screen 
+ *      and generate a json meeing object.
+ */
 function addCity() {
     var itineraryTitle = document.getElementById("itinerary-title").value;
     var cityName = document.getElementById("city-name").value;
@@ -105,6 +110,11 @@ function addCity() {
     });
 }
 
+/**
+ *  @method clearItineraryFields
+ *      clear all the fields of the itinerary
+ *  @param {clearTitle} the target title which needs to be cleared.
+ */
 function clearItineraryFields(clearTitle) {
     if (clearTitle) {
         document.getElementById("itinerary-title").value = "";
@@ -116,8 +126,14 @@ function clearItineraryFields(clearTitle) {
     document.getElementById("friends").value = "";
 }
 
+// the datepicker module
 $('#date').datepicker().data('datepicker');
 
+/**
+ *  @method activateFriendDropdown
+ *      generate a list of friend names, when the user enters name in the friend's name block
+ *      in the create itinerary window
+ */
 function activateFriendDropdown() {
     var fbfriends = friendList.friends;
     var availableTags = createFriendsDropdownArray("MULTIPLE", fbfriends);
