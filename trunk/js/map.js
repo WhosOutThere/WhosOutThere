@@ -8,6 +8,9 @@ var numFriendsInCity;
 var directionsDisplay;
 var directionsService;
 
+/**
+ * function that initialize the google map
+ */
 function initialize() {
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
@@ -15,20 +18,25 @@ function initialize() {
         zoom: 4
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-    //directionsDisplay.setMap(map);
-    //directionsDisplay.setPanel(document.getElementById('directions-panel'));
+    
 
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
-//Function to display the directions from the user's current location to meeting location on our map.
+/**
+ * Function to display the directions from the user's current location to meeting location on our map.
+ * @param {end} the destination that user input
+ * @param {event} event to prevent auto refreshing page
+ * @return {none} 
+ */
 function firstRoute(end,event) {
-  
+  //set the direction panel to display text info
   event.preventDefault();
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById('directions-panel'));
+  //get the current location
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
     var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -38,6 +46,7 @@ function firstRoute(end,event) {
     travelMode: google.maps.TravelMode.DRIVING
   };
   console.log(request);
+  //get the google directions
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
@@ -52,8 +61,12 @@ function firstRoute(end,event) {
   
 }
 
-//Function to plot a marker on the location a user is searching. The marker is initialized with all of the user's friends living in that city.
-//When the marker is clicked, a modal will pop up displaying all of the user's friends living in that city.
+/**
+ * When the marker is clicked, a modal will pop up displaying all of the user's friends living in that city.
+ * @param {event} event to prevent auto refreshing page
+ * @param {fn} function(loc)
+ * @return {none} 
+ */
 function showAddress(event, fn) {
     console.log(event);
     event.preventDefault();
