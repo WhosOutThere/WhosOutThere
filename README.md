@@ -6,6 +6,22 @@ There are many tools to aid in trip planning, covering transportation, lodging a
 
 URL: http://bit.ly/whosoutthere
 
+Set up database:<br>
+1. Go to trunk/sql<br>
+2. Import heng3_whosoutthere.sql to add the tables<br>
+
+Installing the code:<br>
+1. Copy and paste all the code in trunk to the directory which you are using to host the website
+
+Running qunit tests:
+1. Go to (domain name)/test.html.
+
+Running PHPUnit Tests:<br>
+1. Go to the directory containing the app's code.<br>
+2. cd php<br>
+3. Run phpunit --bootstrap functions.php testadditinerary.php and phpunit --bootstrap functions.php testaddnewuser.php<br>
+
+
 Team members:
 Joshua Heng
 Shuotian Chen
