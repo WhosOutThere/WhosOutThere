@@ -9,8 +9,8 @@
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
 <tr><td><a href="createitinerary.html">createitinerary</a></td></tr>
-<tr><td><a href="selectweather.html">selectweather</a></td></tr>
-<tr><td><a href="testsendfbmsg.html">testsendfbmsg</a></td></tr>
+<tr><td><a href="viewitinerary.html">viewitinerary</a></td></tr>
+<tr><td><a href="sharestatus.html">sharestatus</a></td></tr>
 </tbody></table>
 </body>
 </html>

@@ -17,23 +17,38 @@
   <div id="qunit-fixture"></div>
   <div id="map-canvas"></div>
   <div id="query"></div>
-   <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
+  <p id="Names" style="font-family:Arial,Helvetica,sans-serif;"></p>
   <div id="itinerary-title"></div>
   <div id="city-name"></div>
   <div id="location"></div>
   <div id="time"></div>
   <div id="date" style="display: none"></div>
   <div id="friends"></div>
+  <!--below html for testing purpose-->
+  <p hidden id ="facebookLogin"></p>
+  <p hidden id ="facebookLogout"></p>
+  <p hidden id="friend0" checked></p>
+  <p hidden id="friend1" checked></p>
+  <p hidden id="friend2" checked></p>
+  <p hidden id="friend3" checked></p>
+
+  <div hidden class="modal fade" id="displyItinerary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div hidden class="modal-dialog">
+      <div hidden class="panel-group" id="Itinerary"></div>
+    </div>
+  </div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
   <script src="//code.jquery.com/qunit/qunit-1.14.0.js"></script>
   <script src="js/map.js"></script>
   <script src="js/list.js"></script>
   <script src="js/itinerary.js"></script>
+  <script src="js/meetingdisplay.js"></script>
   <script src="js/emailtest.js"></script>
   <script src="js/tests/directionTest.js"></script>
   <script src="js/tests/itinerarytest.js"></script>
   <script src="js/tests/postTest.js"></script>
+  <script src="js/tests/testfacbookmessage.js"></script>
   <script src="js/tests/tests.js"></script>
 </body>
 </html>

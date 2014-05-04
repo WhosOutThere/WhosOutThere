@@ -46,7 +46,7 @@ function showItinerary() {
 		else{
 			for(key in result){
 				var tripname = result[key][0];
-				var unit=  "<div class=\"panel panel-default\"><div class=\"panel-heading\"><h4 class=\"panel-title\"><a onclick=\"renderFbListInDropdown("+key+")\" data-toggle=\"collapse\" data-parent=\"#accordion\" id=\""+key+"\" href=\"#collapse"+key+"\">"+tripname+"</a></h4></div>"+"<div id=\"collapse"+key+"\" class=\"panel-collapse collapse\"><div class=\"panel-body\">";
+				var unit=  "<div class=\"panel panel-default\"><div class=\"panel-heading\"><h4 class=\"panel-title\"><a onclick=\"renderFbListInDropdown("+key+")\" data-toggle=\"collapse\" data-parent=\"#accordion\" id=\"it"+key+"\" href=\"#collapse"+key+"\">"+tripname+"</a></h4></div>"+"<div id=\"collapse"+key+"\" class=\"panel-collapse collapse\"><div class=\"panel-body\">";
 				var meeting=""
 				var element=""
 				var meetings = result[key][1];

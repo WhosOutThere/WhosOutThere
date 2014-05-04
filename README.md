@@ -21,6 +21,11 @@ Running PHPUnit Tests:<br>
 2. cd php<br>
 3. Run phpunit --bootstrap functions.php testadditinerary.php and phpunit --bootstrap functions.php testaddnewuser.php<br>
 
+Running Selenium Tests:<br>
+1. Install Selenium IDE on firefox. Visit here to download: http://docs.seleniumhq.org/download/ <br>
+2. Open Selenium<br>
+3. File->Open Test Suite-> (Go to trunk/seleniumtests and open seleniumtestsuite)<br>
+4. Play entire test suite<br>
 
 Team members:
 Joshua Heng

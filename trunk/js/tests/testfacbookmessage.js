@@ -15,32 +15,6 @@
       else
         ok(true, "Has itineraries");
 });
-
- test( "displayItinerary3", function() {
-     var trips=["roadtrip"];
-     showItinerary(trips); 
-     var result=document.getElementById(trips[0]).innerHTML;
-     notEqual(result,"fligttrip","wrongTrip");
-});
-   test( "displayItinerary4", function() {
-     var trips=["roadtrip","fligttrip"];
-     showItinerary(trips); 
-     var result=document.getElementById(trips[0]).innerHTML;
-     var result1=document.getElementById(trips[1]).innerHTML;
-     notEqual(result,trips[1], "Notsametrip" );  
-});
-
- test( "displayItinerary5", function() {
-     var trips=["roadtrip","fligttrip"];
-     showItinerary(trips); 
-     var result=document.getElementById(trips[0]).innerHTML;
-     var result1=document.getElementById(trips[1]).innerHTML;
-     notEqual(result1,trips[0],"Notsametrip");
-});
-
-
- 
-  
   
   
   
