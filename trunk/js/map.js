@@ -18,7 +18,7 @@ function initialize() {
         zoom: 4
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-    
+
 
 }
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -27,45 +27,45 @@ google.maps.event.addDomListener(window, 'load', initialize);
  * Function to display the directions from the user's current location to meeting location on our map.
  * @param {end} the destination that user input
  * @param {event} event to prevent auto refreshing page
- * @return {none} 
+ * @return {none}
  */
-function firstRoute(end,event) {
-  //set the direction panel to display text info
-  event.preventDefault();
+function firstRoute(end, event) {
+    //set the direction panel to display text info
+    event.preventDefault();
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById('directions-panel'));
-  //get the current location
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-    var request = {
-    origin: pos,
-    destination: end,
-    travelMode: google.maps.TravelMode.DRIVING
-  };
-  console.log(request);
-  //get the google directions
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-      $("#displyItinerary").modal('hide');
+    //get the current location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var request = {
+                origin: pos,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            console.log(request);
+            //get the google directions
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    $("#displyItinerary").modal('hide');
+                }
+            });
+        }, function() {
+            handleNoGeolocation(true);
+        });
     }
-  });
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  }
-  
-  
+
+
 }
 
 /**
  * When the marker is clicked, a modal will pop up displaying all of the user's friends living in that city.
  * @param {event} event to prevent auto refreshing page
  * @param {fn} function(loc)
- * @return {none} 
+ * @return {none}
  */
 function showAddress(event, fn) {
     console.log(event);
@@ -108,8 +108,6 @@ function showAddress(event, fn) {
                         friendList.numFriendsInCity += 1;
                         console.log(friendList.filterFriends[i].name);
                     }
-
-                    document.getElementById("filteredFriends").innerHTML+="Friends should be shown here";
                     $('#myModal').modal('show');
                 }
             });
