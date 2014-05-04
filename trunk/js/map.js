@@ -108,6 +108,8 @@ function showAddress(event, fn) {
                         friendList.numFriendsInCity += 1;
                         console.log(friendList.filterFriends[i].name);
                     }
+
+                    document.getElementById("filteredFriends").innerHTML += "Friends should be shown here";
                     $('#myModal').modal('show');
                 }
             });
