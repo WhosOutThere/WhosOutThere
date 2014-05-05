@@ -191,9 +191,14 @@ function formatWeather(parsed_json){
 */
 
 function getWeather(uniqueId, city, event){
+	var cityname = city.split(", ")[0];
+	cityname = cityname.replace(" ","_");
+	var state = city.split(", ")[1];
+	console.log(cityname);
+	console.log(state);
 	$.ajax({
 		async: false,					
-		url : "http://api.wunderground.com/api/36d24347ff8d7151/geolookup/conditions/q/"+city+".json",
+		url : "http://api.wunderground.com/api/36d24347ff8d7151/geolookup/conditions/q/"+state+"/"+cityname+".json",
 		dataType : "jsonp",
 		success : function(parsed_json) {		
 			var content= formatWeather(parsed_json);			
