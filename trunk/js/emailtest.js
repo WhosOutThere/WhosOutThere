@@ -1,7 +1,7 @@
 /**
  * Split the sendList
- * @param sendList
- * @return emailArray
+ * @param {sendList} email address
+ * @return {emailArray} array of email addresses
  */
 function splitString( sendList ) {
 		var emailArray = sendList.split(";");
@@ -9,8 +9,8 @@ function splitString( sendList ) {
 	}
 /**
  * Split sendList and add to JSON format
- * @param sendList
- * @return global_sendlist
+ * @param {sendList} email address
+ * @return {global_sendlist} array of JSON objects
  */
 function splitAsJson(sendList){
     	var emailArray = address.split(";");
@@ -25,7 +25,7 @@ function splitAsJson(sendList){
 	}
 /**
  * Test for valid email address
- * @param String
+ * @param {String} test message
  */
 test( "testValidAddress", function()) {
  	var sendList="abc@gmail.com;efg@sina.com;test@illinois.edu";
@@ -35,7 +35,7 @@ test( "testValidAddress", function()) {
 });
 /**
  * Test for valid and invalid addresses
- * @param String
+ * @param {String} test message
  */
 test("testValidandInvalidAddress",function(){
 	var sendList="asdf@;werosd@sina.com";
@@ -45,7 +45,7 @@ test("testValidandInvalidAddress",function(){
 });
 /**
  * Test email address in JSON format
- * @param String
+ * @param {String} test message
  */
 test("testJSONFormat",function(){
 	var address = "123@163.com;wercool@gmail.com";
