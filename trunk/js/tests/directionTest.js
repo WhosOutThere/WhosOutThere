@@ -1,6 +1,7 @@
 /**
  * Created by Yanyan on 14-4-10.
  */
+
 var response = {
     "routes": {
         "legs": {
@@ -13,15 +14,23 @@ var ret = {
     "distance": 135,
     "duration": 2
 };
-
-test('test current location to chicago distance', function () {
+/**
+ * test current location to chicago distance
+ * @param {String} test message
+ */
+test('testCurrentLocationToChicagoDistance', function () {
     distance = response['routes']['legs']['distance'];
     equal(ret['distance'], distance, "success");
-})
-test('test current location to chicago duration', function () {
+});
+
+/**
+ * test current location to chicago duration
+ * @param {String} test message
+ */
+test('testCurrentLocationToChicagoDuration', function () {
     duration = response['routes']['legs']['duration'];
     equal(ret['duration'], duration, "success");
-})
+});
 
 //chicago to wisconsin
 var route2 = {
@@ -36,14 +45,24 @@ var ret2 = {
     "distance": 173,
     "duration": 3
 };
-test('test chicago to wisconsin distance', function () {
+
+/**
+ * test chicago to wisconsin distance
+ * @param {String} test message
+ */
+test('testChicagoToWisconsinDistance', function () {
     distance = route2['routes']['legs']['distance'];
     equal(ret2['distance'], distance, "success");
-})
-test('test chicago to wisconsin distance', function () {
+});
+
+/**
+ * test chicago to wisconsin duration
+ * @param {String} test message
+ */
+test('testChicagoToWisconsinDuration', function () {
     duration = route2['routes']['legs']['duration'];
     equal(ret2['duration'], duration, "success");
-})
+});
 
 
 //wisconsin to los angeles
@@ -60,14 +79,23 @@ var ret3 = {
     "duration": 29
 };
 
-test('test wisconsin to los angeles distance', function () {
+/**
+ * test wisconsin to los angeles distance
+ * @param {String} test message
+ */
+test('testWisconsinToLosAngelesDistance', function () {
     distance = route3['routes']['legs']['distance'];
     equal(ret3['distance'], distance, "success");
-})
-test('test wisconsin to los angeles duration', function () {
+});
+
+/**
+ * test wisconsin to los angeles duration
+ * @param {String} test message
+ */
+test('testWisconsinToLosAngelesDuration', function () {
     duration = route3['routes']['legs']['duration'];
     equal(ret3['duration'], duration, "success");
-})
+});
 
 var route4 = {
     "routes": {
@@ -91,16 +119,25 @@ var ret5 = {
     "duration": 30
 };
 
-test('test multiple routes distance', function () {
+/**
+ * test multiple routes distance
+ * @param {String} test message
+ */
+test('testMultipleRoutesDistance', function () {
     distance = route4['routes']['leg0']['distance'];
     duration = route4['routes']['leg0']['duration'];
     equal(ret4['distance'], distance, "success");
     notEqual(ret4['duration'], duration, "success");
-})
-test('test multiple routes duration', function () {
+});
+
+/**
+ * test multiple routes duration
+ * @param {String} test message
+ */
+test('testMultipleRoutesDuration', function () {
     distance = route4['routes']['leg1']['distance'];
     duration = route4['routes']['leg1']['duration'];
     equal(ret5['distance'], distance, "success");
     notEqual(ret5['duration'], duration, "success");
-})
+});
 
